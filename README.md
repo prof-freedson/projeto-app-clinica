@@ -61,7 +61,7 @@ Antes de começar, certifique-se de ter o Node.js e o npm (Node Package Manager)
 - [Node.js](https://nodejs.org/) (versão recomendada)
 - npm (normalmente vem com o Node.js)
 
-## React Navigation (Stack Navigator)
+## React Modulos
 
 O React Navigation é uma biblioteca popular para navegação em aplicativos React Native. O Stack Navigator é um dos tipos de navegação que ele oferece.
 
@@ -86,33 +86,3 @@ Expo SVG permite a renderização de gráficos vetoriais escaláveis (SVG) em ap
 npm install react-native-svg
 Configuração do Projeto
 Certifique-se de que seu projeto React Native esteja configurado adequadamente para suportar esses módulos. Siga as documentações oficiais para cada módulo para integrá-los ao seu projeto.
-
-Exemplo de Uso
-Aqui está um exemplo simples de como você pode usar o React Navigation Stack e o Firebase Firestore em seu aplicativo:
-
-
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-
-// Configurar a conexão com o Firebase
-const firebaseConfig = {
-  // Sua configuração do Firebase aqui
-};
-firebase.initializeApp(firebaseConfig);
-
-const Stack = createStackNavigator();
-
-function App() {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {/* Suas telas aqui */}
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-}
-
-export default App;
