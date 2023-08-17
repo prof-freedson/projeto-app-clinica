@@ -61,9 +61,7 @@ Antes de começar, certifique-se de ter o Node.js e o npm (Node Package Manager)
 - [Node.js](https://nodejs.org/) (versão recomendada)
 - npm (normalmente vem com o Node.js)
 
-## React Modulos
-
-O React Navigation é uma biblioteca popular para navegação em aplicativos React Native. O Stack Navigator é um dos tipos de navegação que ele oferece.
+## React Modulos (Instalação)
 
 ```bash
 npm install @react-navigation/native @react-navigation/stack
