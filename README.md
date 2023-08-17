@@ -61,7 +61,7 @@ Antes de começar, certifique-se de ter o Node.js e o npm (Node Package Manager)
 - [Node.js](https://nodejs.org/) (versão recomendada)
 - npm (normalmente vem com o Node.js)
 
-## React Modulos (Instalação)
+## Node modules (Instalação)
 
 ```bash
 npm install @react-navigation/native @react-navigation/stack
