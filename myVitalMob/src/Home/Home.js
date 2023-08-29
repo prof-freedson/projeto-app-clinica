@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import Style from '../css/Style';
-import DataUser from '../data/.json'; // Fix the import path
+import DataUser from '../data/users.json';
 import Carrosel from '../modules/RenderCarrosel';
 
 import Rotas from '../func/Rotas'

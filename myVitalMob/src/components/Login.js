@@ -20,14 +20,18 @@ const Login = () => {
                     source={{ uri: 'https://www.iconpacks.net/icons/2/free-healthcare-icon-3610-thumb.png' }}
                 />
             </View>
+            
             <View style={Styles.styles.container.ContainerInput}>
-                <View>
-                    <Input inputConf={['email', 'Nome...', setEmail, 'email-address', false, 'not']} Label={['Nome']} />
+            <View>
+                    <Text>Login</Text>
                 </View>
-                <View>
-                    <Input inputConf={['numeric', 'Senha...', setSenha, 'numeric', true, 'yes']} Label={['Senha']} />
+                <View style={Styles.styles.container.ContainerBoxInput} >
+                    <Input inputConf={['email', 'Nome...', setEmail, 'email-address', false, 'not']} Label={['']} />
                 </View>
-                <View>
+                <View style={Styles.styles.container.ContainerBoxInput}>
+                    <Input inputConf={['numeric', 'Senha...', setSenha, 'numeric', true, 'yes']} Label={['']} />
+                </View>
+                <View style={Styles.styles.container.ContainerBoxInput}>
                     <Pressable onPress={() => {
                         console.log(email)
                         console.log(senha)

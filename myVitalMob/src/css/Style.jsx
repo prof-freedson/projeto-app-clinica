@@ -114,7 +114,35 @@ const myStyle = [
                     backgroundColor:'green',
                     width:'100%',
                     height:'70%',
-                    padding:2
+                    padding:2,
+                    // display:'flex',
+                    // alignItems:'center',
+                    gap:5
+                },
+
+                ContainerBoxInput:{
+                    // display:'flex',
+                    backgroundColor:'blue',
+                    // alignItems:"center",
+                    width:'100%',
+                    padding:2,
+                    Input:{
+                        width:'100%',
+                        backgroundColor:'red',
+                        padding:5
+                    },
+                    inputView:{
+                        width:'100%',
+                        backgroundColor:'red',
+                        display:'flex',
+                        justifyContent:'space-bettewen',
+                        flexDirection:'row',
+                        padding:2
+                        ,Input:{
+                            width:'70%',
+                            backgroundColor:'orange',
+                        }
+                    }
                 }
 
 

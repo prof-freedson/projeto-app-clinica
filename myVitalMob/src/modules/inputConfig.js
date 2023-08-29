@@ -1,5 +1,10 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
+import Style from '../css/Style'
+
+const Styles = {
+  styles: Style[2],
+};
 
 const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] }) => {
   const [handeText, setHandeText] = useState('');
@@ -33,13 +38,11 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] }) => 
       if (verifyInput.button == "yes") {
 
         return (
-          <View>
-            <View>
-              <Text>{Label[0]}</Text>
-            </View>
-            <View>
-              <View>
+  
+            <View  style={Styles.styles.container.ContainerBoxInput.inputView}>
+              <View style={Styles.styles.container.ContainerBoxInput.inputView.Input}>
                 <TextInput
+                
                   inputMode={inputConf[0]}
                   placeholder={inputConf[1]}
                   keyboardType={inputConf[3]}
@@ -51,20 +54,16 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] }) => 
               <TouchableOpacity onPress={
                 viewButton 
               }>
-                <Text>Visualizar</Text>
+                <Text>👁️</Text>
               </TouchableOpacity>
             </View>
-          </View>
+         
         )
       }
       else {
         return (
-          <View>
-            <View>
-              <Text>{Label[0]}</Text>
-            </View>
-            <View>
                 <TextInput
+                  style={Styles.styles.container.ContainerBoxInput.Input}
                   inputMode={inputConf[0]}
                   placeholder={inputConf[1]}
                   keyboardType={inputConf[3]}
@@ -72,8 +71,7 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] }) => 
                   onChangeText={handleInput}
                   value={handeText}
                 />
-            </View>
-          </View>
+
         )
       }
 
