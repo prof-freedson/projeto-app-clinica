@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Pressable, Text } from 'react-native';
 import Input from '../modules/inputConfig';
 
-const Login = () => {
+const Registro = () => {
     const [nome, setNome] = useState('');
     const [email, setEmail] = useState('');
     const [numero, setNumero] = useState('');
@@ -48,4 +48,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Registro;

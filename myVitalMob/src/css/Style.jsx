@@ -5,7 +5,8 @@ const colletion = []
 const Layout = {
     colores:{
         _color_one:"#fff",
-        _color_two:"#DD242C"
+        _color_two:"#DD242C",
+        _color_three:"#f4f4f4"
     }
 }
 
@@ -96,51 +97,81 @@ const myStyle = [
     stylesLogin = {
         container:{
             display:'flex',
-            backgroundColor:'#fff',
+            backgroundColor:Layout.colores._color_three,
             alignItems:"center",
             justifyContent:"center",
             width:'100%',
             height:'100%',
+            padding:5,
                 ContainerImgLogo:{
                     display:'flex',
-                    backgroundColor:'red',
+                    // backgroundColor:'red',
                     alignItems:"center",
                     justifyContent:"center",
                     width:'100%',
-                    height:'30%',
+                    height:'40%',
                     padding:2
                 },
                 ContainerInput:{
-                    backgroundColor:'green',
+                    // backgroundColor:'green',
                     width:'100%',
-                    height:'70%',
+                    height:'60%',
                     padding:2,
                     // display:'flex',
                     // alignItems:'center',
-                    gap:5
+                    gap:15,
+                    Text:{
+                        fontSize:30,
+                        fontWeight:500,
+                    }
                 },
 
                 ContainerBoxInput:{
                     // display:'flex',
-                    backgroundColor:'blue',
+                    // backgroundColor:'blue',
                     // alignItems:"center",
                     width:'100%',
                     padding:2,
                     Input:{
                         width:'100%',
-                        backgroundColor:'red',
-                        padding:5
+                        backgroundColor:'#fefefe',
+                        padding:5,
+                        borderRadius:6,
                     },
                     inputView:{
                         width:'100%',
-                        backgroundColor:'red',
+                        // backgroundColor:'red',
                         display:'flex',
-                        justifyContent:'space-bettewen',
+                        justifyContent:'space-between',
                         flexDirection:'row',
-                        padding:2
-                        ,Input:{
-                            width:'70%',
-                            backgroundColor:'orange',
+                        Input:{
+                            width:'90%',
+                            backgroundColor:'#fefefe',
+                            padding:5,
+                            borderTopLeftRadius:6,
+                            borderBottomLeftRadius:6
+                        },
+                        Button:{
+                            backgroundColor:'#fefefe',
+                            display:'flex',
+                            justifyContent:'center',
+                            width:'10%',
+                            alignItems:'center',
+                            borderTopRightRadius:6,
+                            borderBottomRightRadius:6
+                        }
+                    }
+                    ,ButtonSend:{
+                        backgroundColor:Layout.colores._color_two,
+                        display:'flex',
+                        justifyContent:'center',
+                        width:'100%',
+                        alignItems:'center',
+                        borderRadius:6,
+                        padding:10,
+                        Text:{
+                            color:Layout.colores._color_one,
+                            fontSize:15
                         }
                     }
                 }

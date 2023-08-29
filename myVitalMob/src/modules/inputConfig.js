@@ -51,13 +51,14 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] }) => 
                   value={handeText}
                 />
               </View>
-              <TouchableOpacity onPress={
+              <TouchableOpacity 
+              style={Styles.styles.container.ContainerBoxInput.inputView.Button}
+              onPress={
                 viewButton 
               }>
                 <Text>👁️</Text>
               </TouchableOpacity>
             </View>
-         
         )
       }
       else {
