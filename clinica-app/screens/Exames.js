@@ -1,7 +1,7 @@
 import { Alert, Image, Platform, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import CartaoExame from "../components/CartaoExame";
 
-export default function Exames() {
+export default function Exames({ navigation }) {
     return (
         <View style={styles.container}>
             <Text style={{ fontWeight: 'bold', fontSize: 30, paddingTop: 30 }}>Exames</Text>
