@@ -178,6 +178,101 @@ const myStyle = [
 
 
         }
+    },
+
+
+    stylesRegistro = {
+        container:{
+            display:'flex',
+            backgroundColor:Layout.colores._color_three,
+            alignItems:"center",
+            justifyContent:"center",
+            width:'100%',
+            height:'100%',
+            padding:5,
+                ContainerImgLogo:{
+                    display:'flex',
+                    // backgroundColor:'red',
+                    alignItems:"center",
+                    justifyContent:"center",
+                    width:'100%',
+                    height:'20%',
+                    padding:2
+                },
+                ContainerInput:{
+                    // backgroundColor:'green',
+                    width:'100%',
+                    height:'80%',
+                    padding:2,
+                    // display:'flex',
+                    // alignItems:'center',
+                    gap:15,
+                    Text:{
+                        fontSize:30,
+                        fontWeight:500,
+                    }
+                },
+
+                ContainerBoxInput:{
+                    // display:'flex',
+                    // backgroundColor:'blue',
+                    // alignItems:"center",
+                    width:'100%',
+                    padding:2,
+                    Input:{
+                        width:'100%',
+                        backgroundColor:'#fefefe',
+                        padding:5,
+                        borderRadius:6,
+                    },
+                    inputView:{
+                        width:'100%',
+                        // backgroundColor:'red',
+                        display:'flex',
+                        justifyContent:'space-between',
+                        flexDirection:'row',
+                        Input:{
+                            width:'90%',
+                            backgroundColor:'#fefefe',
+                            padding:5,
+                            borderTopLeftRadius:6,
+                            borderBottomLeftRadius:6
+                        },
+                        Button:{
+                            backgroundColor:'#fefefe',
+                            display:'flex',
+                            justifyContent:'center',
+                            width:'10%',
+                            alignItems:'center',
+                            borderTopRightRadius:6,
+                            borderBottomRightRadius:6
+                        }
+                    }
+                    ,ButtonSend:{
+                        backgroundColor:Layout.colores._color_two,
+                        display:'flex',
+                        justifyContent:'center',
+                        width:'100%',
+                        alignItems:'center',
+                        borderRadius:6,
+                        padding:10,
+                        Text:{
+                            color:Layout.colores._color_one,
+                            fontSize:15
+                        }
+                    }
+                    ,GroupRadiosButtons:{
+
+                        display:'flex',
+                        justifyContent:'center',
+                        width:'100%',
+                        alignItems:'center',
+                        flexDirection:'row'
+                        
+                    }
+                }
+
+        }
     }
     
 ]

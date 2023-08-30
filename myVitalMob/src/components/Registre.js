@@ -1,6 +1,14 @@
 import React, { useState } from 'react';
-import { View, Pressable, Text } from 'react-native';
+import { View, Pressable, Text, Image } from 'react-native';
+import { RadioButton } from 'react-native-paper'; // Certifique-se de ter instalado o react-native-paper
 import Input from '../modules/inputConfig';
+import Style from '../css/Style'
+import { useNavigation } from '@react-navigation/native';
+import DataBase from '../data/dataBase';
+
+const Styles = {
+    styles: Style[3],
+};
 
 const Registro = () => {
     const [nome, setNome] = useState('');
@@ -8,42 +16,122 @@ const Registro = () => {
     const [numero, setNumero] = useState('');
     const [senha, setSenha] = useState('');
     const [confirmesenha, setConfirmeSenha] = useState('');
+    const [genero, setGenero] = useState('male'); 
 
+    const navigation = useNavigation();
 
+    const navigateToLogin = () => {
+        navigation.navigate('Login'); 
+    };
+
+    const verificarSenhas = () => {
+        if (senha === confirmesenha) {
+            return true;
+        } else {
+            console.log('As senhas não correspondem.');
+            return false;
+        }
+    };
+
+    const handleRegistrar = () => {
+        if (verificarSenhas()) {
+            console.log('id:',  generateCustomId());
+            console.log('Nome:', nome);
+            console.log('Email:', email);
+            console.log('Número:', numero);
+            console.log('Senha:', senha);
+            console.log('Confirmação de Senha:', confirmesenha);
+            console.log('Gênero:', genero);
+
+            try{
+                const userData = {
+                    id: generateCustomId(),
+                    nome,
+                    email,
+                    numero,
+                    senha,
+                    genero,
+                  };    
+                  
+                  DataBase({ callBack: 'Save',key:"dataKey", data: userData });
+            }
+            catch(error){
+                console.log('Erro ao salvar informações no AsyncStorage:', error);   
+            }
+        }
+    };
+
+    const generateCustomId = () => {
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        let customId = '#';
+
+        for (let i = 0; i < 4; i++) {
+            const randomIndex = Math.floor(Math.random() * characters.length);
+            customId += characters[randomIndex];
+        }
+
+        return customId;
+    };
 
     return (
-        <View>
-            <View>
-                <View>
-                    <Input inputConf={['text', 'Nome...', setNome,'text',false,'not']} Label={['Nome completo *']} />
+        <View style={Styles.styles.container}>
+            <View style={Styles.styles.container.ContainerImgLogo}>
+                <Image
+                    style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+                    source={{ uri: 'https://www.iconpacks.net/icons/2/free-healthcare-icon-3610-thumb.png' }}
+                />
+            </View>
+            <View style={Styles.styles.container.ContainerInput}>
+                <View style={Styles.styles.container.ContainerBoxInput}>
+                    <Input inputConf={['text', 'Nome...', setNome, 'default', false, 'not']} Label={'Nome completo *'} />
                 </View>
-                <View>
-                    <Input inputConf={['email', 'Email...', setEmail,'email-address',false,'not']} Label={['Email']} />
+                <View style={Styles.styles.container.ContainerBoxInput}>
+                    <Input inputConf={['email', 'Email...', setEmail, 'email-address', false, 'not']} Label={'Email'} />
                 </View>
-                <View>
-                    <Input inputConf={['tel', 'Numero...', setNumero,'numeric',false,'not']} Label={['Telefone']} />
+                <View style={Styles.styles.container.ContainerBoxInput}>
+                    <Input inputConf={['numeric', 'Numero...', setNumero, 'numeric', false, 'not']} Label={'Telefone'} />
                 </View>
-                <View>
-                    <Input inputConf={['numeric', 'Senha...', setSenha,'numeric',true,'not']} Label={['Senha']} />
+                <View style={Styles.styles.container.ContainerBoxInput}>
+                    <Input inputConf={['numeric', 'Senha...', setSenha, 'default', true, 'not']} Label={'Senha'} />
                 </View>
-                <View>
-                    <Input inputConf={['numeric', 'Confirma Senha...', setConfirmeSenha,'numeric',true,'not']} Label={['Confirma Senha']} />
+                <View style={Styles.styles.container.ContainerBoxInput}>
+                    <Input inputConf={['numeric', 'Confirma Senha...', setConfirmeSenha, 'default', true, 'not']} Label={'Confirma Senha'} />
                 </View>
-                <View>
-                    <Pressable onPress={() => {
-                        console.log(nome)
-                        console.log(email)
-                        console.log(numero)
-                        console.log(senha)
-                        console.log(confirmesenha)
-                    }}>
-                        <Text>
+                <View style={Styles.styles.container.ContainerBoxInput}>
+                    <Text>Gênero:</Text>
+                    <RadioButton.Group
+                        onValueChange={newValue => setGenero(newValue)} value={genero}
+
+                    >
+                        <View style={Styles.styles.container.ContainerBoxInput.GroupRadiosButtons}>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <RadioButton value="male" />
+                                <Text>Masculino</Text>
+                            </View>
+                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                <RadioButton value="female" />
+                                <Text>Feminino</Text>
+                            </View>
+                        </View>
+                    </RadioButton.Group>
+                </View>
+                <View style={Styles.styles.container.ContainerBoxInput}>
+                    <Pressable onPress={handleRegistrar}
+                        style={[Styles.styles.container.ContainerBoxInput.ButtonSend, { marginTop: 10 }]}
+                    >
+                        <Text style={Styles.styles.container.ContainerBoxInput.ButtonSend.Text}>
                             Registrar
                         </Text>
                     </Pressable>
                 </View>
+                <View style={Styles.styles.container.ContainerBoxInput}>
+                    <Pressable
+                        onPress={navigateToLogin}
+                    >
+                        <Text style={{ textAlign: 'center', marginTop: 10 }} >Ja Possui Conta ? <Text style={{ textDecorationLine: 'underline', color: '#DD242C', fontWeight: 'bold' }}>Login</Text></Text>
+                    </Pressable>
+                </View>
             </View>
-
         </View>
     );
 };

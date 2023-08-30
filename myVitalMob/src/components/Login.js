@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, Pressable, Text, Image, Alert, TouchableOpacity } from 'react-native';
 import Input from '../modules/inputConfig';
 import Style from '../css/Style'
-import Rotas from '../func/Rotas'
+
 import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
@@ -16,7 +16,7 @@ const Login = () => {
     };
 
     const navigateToRegistro = () => {
-        navigation.navigate('Registro'); // Navega para a tela 'Registro' na pilha 'App'
+        navigation.navigate('Registro'); 
     };
 
     return (
