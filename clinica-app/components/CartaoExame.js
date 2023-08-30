@@ -8,9 +8,6 @@ export default function CartaoExame({nomeExame, dataExame, horaExame, precoExame
                 <View style={{ backgroundColor: '#ffffff', height: 120, width: '70%', fontSize: 20, fontWeight: 'bold', paddingLeft: 10, justifyContent: 'center', borderTopRightRadius: 10, borderBottomRightRadius: 10 }}>
                     <Text style={styles.cartaoTexto}>{nomeExame}</Text>
                     <Text style={styles.cartaoTexto}>Data: {dataExame}  </Text>
-                    <View>
-                        <DatePicker format="DD/MM/YYYY" />
-                    </View>
                     <Text style={styles.cartaoTexto}>Horário: {horaExame}</Text>
                     <Text style={styles.cartaoTexto}>Preço: R$ {precoExame}</Text>
                     <Pressable style={styles.botaoAlerta} onPress={() => Alert.alert(orientaTitulo, orientaDetalhes)}>
