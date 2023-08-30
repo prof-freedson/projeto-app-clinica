@@ -1,22 +1,20 @@
 # 🏥💉 Aplicativo da Clínica Médica
+![VitalMob](./_Logo/Logo.png)
 
-📱 Telas do Aplicativo
+## Índice
 
-1. **Splash Screen** 🌟
-2. **Cadastro** 📝
-3. **Login** 🔑
-4. **Início** 🏠
-5. **Consultas** 👩‍⚕️📅
-6. **Exames** 🩺📋
-7. **Sobre o Aplicativo** ℹ️
+- <a href="funcionalidades">Funcionalidades</a>
+- <a href="screens">Screens</a>
+- <a href="desenvolvimento">Desenvolvimento Colaborativo</a>
+- <a href="demonstracao">Demonstração</a>
 
 ## 🛠️ Funcionalidades
 
-### Consultas
+### Consultas 🩺
 
 Os clientes ou pacientes poderão agendar **consultas**, escolhendo data, horário e especialidade médica (clínico geral, ortopedista, fisioterapeuta, cardiologista, etc.). A tela de consultas exibirá as consultas agendadas.
 
-### Exames
+### Exames 💉
 
 Os clientes ou pacientes poderão agendar **exames**, escolhendo data, horário e tipo de exame médico (hemograma, ultrassonografia, eletrocardiograma, etc.). A tela de exames exibirá os exames agendados.
 
@@ -28,9 +26,18 @@ O aplicativo será desenvolvido com o framework **React Native**, com suporte à
 
 O layout será baseado em um dos layouts em anexo, incluindo escolha de fontes, imagens e cores que se aproximem do layout escolhido.
 
-### Sobre o Aplicativo
+### Sobre o Aplicativo 📄
 
 A tela "Sobre o Aplicativo" conterá a lista dos nomes completos dos alunos participantes do projeto, juntamente com um ícone do **GitHub** que direciona o usuário à página do projeto no **GitHub**.
+
+## 📱 Screens
+1. **Splash Screen** 🌟
+2. **Cadastro** 📝
+3. **Login** 🔑
+4. **Início** 🏠
+5. **Consultas** 👩‍⚕️📅
+6. **Exames** 🩺📋
+7. **Sobre o Aplicativo** ℹ️
 
 ## 👥 Desenvolvimento Colaborativo
 
@@ -84,3 +91,9 @@ Expo SVG permite a renderização de gráficos vetoriais escaláveis (SVG) em ap
 npm install react-native-svg
 Configuração do Projeto
 Certifique-se de que seu projeto React Native esteja configurado adequadamente para suportar esses módulos. Siga as documentações oficiais para cada módulo para integrá-los ao seu projeto.
+```
+## Tecnologias Utilizadas
+
+1.[React Native](https://reactnative.dev/)<br>
+2.[Expo](https://expo.dev/)<br>
+3.[Google Firebase](https://firebase.google.com/?hl=pt)
