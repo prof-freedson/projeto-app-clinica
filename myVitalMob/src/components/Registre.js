@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Pressable, Text, Image } from 'react-native';
-import { RadioButton } from 'react-native-paper'; // Certifique-se de ter instalado o react-native-paper
+import { RadioButton } from 'react-native-paper';
 import Input from '../modules/inputConfig';
 import Style from '../css/Style'
 import { useNavigation } from '@react-navigation/native';
@@ -42,6 +42,7 @@ const Registro = () => {
             console.log('Senha:', senha);
             console.log('Confirmação de Senha:', confirmesenha);
             console.log('Gênero:', genero);
+            
 
             try{
                 const userData = {
@@ -52,8 +53,19 @@ const Registro = () => {
                     senha,
                     genero,
                   };    
-                  
-                  DataBase({ callBack: 'Save',key:"dataKey", data: userData });
+
+
+                    // if(nome ==="" || email === "" || numero === "" || senha === "" || confirmesenha  === ""){
+                    //     console.log("Erro campo Vazio")
+                    // }
+                    // else{
+                    //     //salvar dados no auth end firestore
+                    // }
+
+                    DataBase({ callBack: 'View',key:"dataKey", data: userData }) &&
+                    navigation.navigate('Login', {userData}) 
+
+
             }
             catch(error){
                 console.log('Erro ao salvar informações no AsyncStorage:', error);   

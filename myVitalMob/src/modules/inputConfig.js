@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity } from 'react-native';
 import Style from '../css/Style';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 const Styles = {
   styles: Style[2],
 };
 
-const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] }) => {
+const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] ,Value=['',''] }) => {
   const [handeText, setHandeText] = useState('');
   const [handeView, setHandeView] = useState(true);
-  const [handeSee, setHandeSee] = useState('👁️');
+  const [handeye , setHandeye] = useState('eye')
+
+  console.log(Value[0] , Value[1])
 
   function handleInput(text) {
     setHandeText(text);
@@ -26,11 +29,11 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] }) => 
 
     function viewButton() {
       if (handeView === true) {
+        setHandeye("eye-slash")
         setHandeView(false);
-        setHandeSee('👀');
       } else {
+        setHandeye("eye")
         setHandeView(true);
-        setHandeSee('👁️');
       }
     }
 
@@ -43,7 +46,7 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] }) => 
                 inputMode={inputConf[0]}
                 placeholder={inputConf[1]}
                 keyboardType={inputConf[3]}
-                secureTextEntry={!handeView} // Fixed here
+                secureTextEntry={!handeView} 
                 onChangeText={handleInput}
                 value={handeText}
               />
@@ -51,7 +54,7 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] }) => 
             <TouchableOpacity
               style={Styles.styles.container.ContainerBoxInput.inputView.Button}
               onPress={viewButton}>
-              <Text>{handeSee}</Text>
+              <FontAwesome name={handeye} color={'gray'} size={20}/>
             </TouchableOpacity>
           </View>
         );

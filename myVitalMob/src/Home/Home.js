@@ -31,12 +31,16 @@ const Home = () => {
   //       data: JSON.parse(value),
   //     }));
 
+
+
   //     console.log('Dados armazenados:', parsedData);
   //     setIsLoading(false); // Finaliza o carregamento
   //   } catch (error) {
   //     console.log('Erro ao obter dados:', error);
   //   }
   // };
+
+  // getDataFromAsyncStorage()
 
   useEffect(() => {
     const checkUserData = async () => {
