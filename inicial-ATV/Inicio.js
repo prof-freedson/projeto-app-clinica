@@ -3,7 +3,6 @@ import { Pressable } from "react-native";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faMicroscope, faUserDoctor } from '@fortawesome/free-solid-svg-icons';
-import { useFonts } from "expo-font";
 
 
 const Inicio = ({ navigation }) => {
