@@ -1,25 +1,30 @@
 import React from "react";
-import { Pressable } from "react-native";
-import { StyleSheet, View, Text, Image } from "react-native";
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { StyleSheet, View, Text, Image, TouchableOpacity, Pressable } from "react-native";
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faMicroscope, faUserDoctor } from '@fortawesome/free-solid-svg-icons';
 
-const Inicio = ({ navigation }) => {
+const Inicio = ({ navigation, route }) => {
+    const userData = route.params.userData;
+    const docRef = route.params.docRef;
+
     return (
         <View style={styles.container}>
-            <View></View>
             <View style={styles.banner}>
                 <Image styles={styles.imagem} source={require('../assets/familia.png')} />
+                <TouchableOpacity activeOpacity={.7} style={styles.botaoSobre} onPress={() => navigation.navigate('Sobre')}>
+                    <Text style={styles.textoSobre}>Sobre nós</Text>
+                </TouchableOpacity>
                 <View style={styles.position1}><Text style={styles.text}>Consultas <Text style={styles.eComecial}>&</Text> Exames</Text></View>
             </View >
             <View >
                 <View style={styles.linhaBotao}>
-                    <Pressable style={styles.button} onPress={() => navigation.navigate("consulta")}>
-                        <FontAwesome icon={faUserDoctor} size={40} style={styles.icon} />
+                    <Pressable style={styles.button} onPress={() => navigation.navigate("Consultas", {userData, docRef})}>
+                        <FontAwesomeIcon icon={faUserDoctor} size={40} style={styles.icon} />
                         <Text style={styles.botion}>Consultas</Text>
                     </Pressable>
 
-                    <Pressable style={styles.button} onPress={() => navigation.navigate("exame")}>
-                        <FontAwesome icon={faMicroscope} size={40} style={styles.icon} />
+                    <Pressable style={styles.button} onPress={() => navigation.navigate("Exames", {userData, docRef})}>
+                        <FontAwesomeIcon icon={faMicroscope} size={40} style={styles.icon} />
                         <Text style={styles.botion}>Exames</Text>
                     </Pressable>
                     </View>
@@ -35,7 +40,7 @@ const styles = StyleSheet.create({
         padding: 20,
         marginVertical: 10,
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     banner: {
         alignItems: 'center'
@@ -49,8 +54,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
         zIndex: 1,
-        marginVertical: 240,
-        fontFamily: 'Anton'
+        marginVertical: 240
     },
     button: {
         backgroundColor: 'white',
@@ -91,7 +95,19 @@ const styles = StyleSheet.create({
     position1: {
         position: 'absolute',
         alignItems: 'center',
-    }
+    },
+    botaoSobre: {
+        position: 'absolute',
+        top: '90%',
+        alignItems: 'center',
+        backgroundColor: "#FF3333",
+        paddingHorizontal: 30,
+        paddingVertical: 10,
+    },
+    textoSobre: {
+        color: "white",
+        fontWeight: 'bold',
+    },
 });
 
 export default Inicio;

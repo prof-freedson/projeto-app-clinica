@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="agendarExame" screenOptions={{headerShown: false}}>
+      <Stack.Navigator initialRouteName="exames" screenOptions={{headerShown: false}}>
         <Stack.Screen name='exames' component={Exames} />
         <Stack.Screen name='testeData' component={TesteData} />
         <Stack.Screen name='agendarExame' component={AgendarExames}/>

@@ -60,7 +60,7 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''], Value
                 value={
                   id === "Email" || id === "Senha"
                     ? Value[0] || handeText
-                    : console.log("Passe o Valor do ID correto id={'Senha'} ou id={'Email'} ")
+                    : false
                 }
               />
             </View>
@@ -83,7 +83,7 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''], Value
             value={
               id === "Email" || id === "Senha"
                 ? Value[0] || handeText
-                : console.log("Passe o Valor do ID correto id={'Senha'} ou id={'Email'} ")
+                : false
             }
           />
         );
