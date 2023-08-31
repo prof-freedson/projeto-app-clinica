@@ -2,8 +2,7 @@ import React from "react";
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { MultipleSelectList, SelectList } from "react-native-dropdown-select-list";
 
-
-const Exames = () => {
+export default function AgendarExames({ navigation }) {
     const [exame, setExame] = React.useState("");
     const [listaExame, setListaExame] = React.useState([]);
 
@@ -21,40 +20,54 @@ const Exames = () => {
     return (
         <View style={styles.container}>
             <Text style={{ fontWeight: 'bold', fontSize: 30, paddingTop: 30 }}>Agende seus exames:</Text>
-
             <View style={{ paddingHorizontal: 15, marginTop: 15 }}>
-                {/* <SelectList
-                    setSelected={setExame}
-                    data={data}
 
-                /> */}
+                <SelectList
+                    setSelected={(val) => setExame(val)}
+                    data={data}
+                    save="value"
+                />
+
                 <MultipleSelectList
                     setSelected={(val) => setListaExame(val)}
                     data={data}
                     save="value"
-                    label="Lista de Exames Selecionados:"
+                    label="Lista de Exames Selecionados"
                     boxStyles={{ marginTop: 25 }}
                 />
-                {/* <View>
-                    <Text>Exame Selecionado: </Text>
-                    <Text style={{ marginTop: 10, color: '#dd242c' }}>{exame}</Text>
-                </View> */}
+
+                {/* Agenda um exame de cada: */}
+
                 <View>
-                    <Text>Exames Selecionadas: </Text>
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Exame Selecionado: </Text>
+                    <Text style={{ alignItems: 'center', justifyContent: 'center', marginTop: 10, color: '#ffffff', backgroundColor: '#dd242c', borderRadius: 5, fontWeight: 'bold', paddingLeft: 10, width: 220 }}>{exame}</Text>
+
+                </View>
+
+                {/* Agenda vários exames ao mesmo tempo: */}
+
+                <View>
+                    <Text style={{ fontWeight: 'bold', fontSize: 20 }}>Exames Selecionadas: </Text>
                     {
                         listaExame.map((item) => {
                             return (
-                                <Text key={item} style={{ marginTop: 10, color: '#ffffff', fontWeight: "bold", backgroundColor: '#dd242c' }}>{item}</Text>
+                                <Text key={item} style={{
+                                    alignItems: 'center', justifyContent: 'center', marginTop: 10, color: '#ffffff', fontWeight: "bold", backgroundColor: '#dd242c', paddingLeft: 10, borderRadius: 5, width: 220
+                                }}>{item}</Text>
                             )
                         })
                     }
                 </View>
             </View>
+
+            <Pressable style={styles.botaoAgendar} onPress={() => navigation.navigate('exames')}>
+                <Text style={{ fontWeight: 'bold', color: '#ffffff' }}>AGENDAR</Text>
+            </Pressable>
         </View>
     )
 }
 
-export default Exames;
+
 
 // export default function AgendarExames(/* {navigation} */) {
 
@@ -231,7 +244,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 20,
-        borderRadius: 5
+        borderRadius: 5,
+        marginTop: 30
     },
     botaoCancelar: {
         height: 30,
