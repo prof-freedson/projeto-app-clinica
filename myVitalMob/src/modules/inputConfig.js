@@ -7,12 +7,21 @@ const Styles = {
   styles: Style[2],
 };
 
-const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] ,Value=['',''] }) => {
+const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''], Value = [''], id }) => {
   const [handeText, setHandeText] = useState('');
   const [handeView, setHandeView] = useState(true);
-  const [handeye , setHandeye] = useState('eye')
+  const [handeye, setHandeye] = useState('eye')
 
-  console.log(Value[0] , Value[1])
+
+  // if(id === "Email"){
+  //   console.log(`essa é a Seu Email :${Value[0]}`)
+  // }
+  // else if(id === "Senha"){
+  //   console.log(`essa é a Sua Senha :${Value[0]}`)
+  // }
+  // else{
+  //   console.log("Passe o Valor do ID correto id={'Senha'} ou id={'Email'} ")
+  // }
 
   function handleInput(text) {
     setHandeText(text);
@@ -46,15 +55,19 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] ,Value
                 inputMode={inputConf[0]}
                 placeholder={inputConf[1]}
                 keyboardType={inputConf[3]}
-                secureTextEntry={!handeView} 
+                secureTextEntry={!handeView}
                 onChangeText={handleInput}
-                value={handeText}
+                value={
+                  id === "Email" || id === "Senha"
+                    ? Value[0] || handeText
+                    : console.log("Passe o Valor do ID correto id={'Senha'} ou id={'Email'} ")
+                }
               />
             </View>
             <TouchableOpacity
               style={Styles.styles.container.ContainerBoxInput.inputView.Button}
               onPress={viewButton}>
-              <FontAwesome name={handeye} color={'gray'} size={20}/>
+              <FontAwesome name={handeye} color={'gray'} size={20} />
             </TouchableOpacity>
           </View>
         );
@@ -67,7 +80,11 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''] ,Value
             keyboardType={inputConf[3]}
             secureTextEntry={inputConf[4] === 'yes'} // Fixed here
             onChangeText={handleInput}
-            value={handeText}
+            value={
+              id === "Email" || id === "Senha"
+                ? Value[0] || handeText
+                : console.log("Passe o Valor do ID correto id={'Senha'} ou id={'Email'} ")
+            }
           />
         );
       }

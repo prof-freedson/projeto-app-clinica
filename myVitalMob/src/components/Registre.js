@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
 import { View, Pressable, Text, Image } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import Input from '../modules/inputConfig';
 import Style from '../css/Style'
 import { useNavigation } from '@react-navigation/native';
 import DataBase from '../data/dataBase';
+import Toast from 'react-native-toast-message'; // Importar o react-native-toast-message
 
 const Styles = {
     styles: Style[3],
@@ -24,6 +25,7 @@ const Registro = () => {
         navigation.navigate('Login'); 
     };
 
+
     const verificarSenhas = () => {
         if (senha === confirmesenha) {
             return true;
@@ -33,45 +35,56 @@ const Registro = () => {
         }
     };
 
-    const handleRegistrar = () => {
+    const handleRegistrar = async () => {
         if (verificarSenhas()) {
-            console.log('id:',  generateCustomId());
-            console.log('Nome:', nome);
-            console.log('Email:', email);
-            console.log('Número:', numero);
-            console.log('Senha:', senha);
-            console.log('Confirmação de Senha:', confirmesenha);
-            console.log('Gênero:', genero);
-            
+          if (nome === "" || email === "" || numero === "" || senha === "" || confirmesenha === "") {
+            Toast.show({
+                type: 'error',
+                text1: 'Erro',
+                text2: 'Preencha todos os campos obrigatórios.',
+                position:'bottom',
+            });
+            return;
+          }
+      
+          console.log('id:', generateCustomId());
+          console.log('Nome:', nome);
+          console.log('Email:', email);
+          console.log('Número:', numero);
+          console.log('Senha:', senha);
+          console.log('Confirmação de Senha:', confirmesenha);
+          console.log('Gênero:', genero);
+      
+          try {
+            const userData = {
+              id: generateCustomId(),
+              nome,
+              email,
+              numero,
+              senha,
+              genero,
+            };
+      
+            DataBase({ callBack: 'Delete', key: "dataKey", data: userData }) // [Save , Delete , View]
+    
 
-            try{
-                const userData = {
-                    id: generateCustomId(),
-                    nome,
-                    email,
-                    numero,
-                    senha,
-                    genero,
-                  };    
-
-
-                    // if(nome ==="" || email === "" || numero === "" || senha === "" || confirmesenha  === ""){
-                    //     console.log("Erro campo Vazio")
-                    // }
-                    // else{
-                    //     //salvar dados no auth end firestore
-                    // }
-
-                    DataBase({ callBack: 'View',key:"dataKey", data: userData }) &&
-                    navigation.navigate('Login', {userData}) 
-
-
-            }
-            catch(error){
-                console.log('Erro ao salvar informações no AsyncStorage:', error);   
-            }
+            Toast.show({
+              type: 'success',
+              text1: 'Sucesso',
+              text2: 'Dados salvos com sucesso!',
+            });
+      
+            navigation.navigate('Login', { userData });
+          } catch (error) {
+            console.log('Erro ao salvar informações no AsyncStorage:', error);
+            Toast.show({
+              type: 'error',
+              text1: 'Erro',
+              text2: 'Ocorreu um erro ao salvar os dados.',
+            });
+          }
         }
-    };
+      };
 
     const generateCustomId = () => {
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -143,6 +156,7 @@ const Registro = () => {
                         <Text style={{ textAlign: 'center', marginTop: 10 }} >Ja Possui Conta ? <Text style={{ textDecorationLine: 'underline', color: '#DD242C', fontWeight: 'bold' }}>Login</Text></Text>
                     </Pressable>
                 </View>
+                <Toast />
             </View>
         </View>
     );
