@@ -79,6 +79,9 @@ export default function Exames({ navigation }) {
                     imagem={require('../assets/images/endoscopia.jpg')}
                 />
             </ScrollView >
+            {/* <Pressable styele={styles.botaoExame} onPress={() => navigation.navigate('agendarexame')}>
+                <Text>AGENDAR NOVO EXAME</Text>
+            </Pressable> */}
         </View >
     )
 }
@@ -112,5 +115,15 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#ffffff'
 
+    },
+    botaoExame: {
+        width: '100%',
+        height: 35,
+        backgroundColor: '#eacb57',
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 20,
+        marginTop: 10,
+        borderRadius: 5
     }
 })
