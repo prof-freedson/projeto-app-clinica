@@ -16,6 +16,7 @@ const DataBase = ({ callBack, key, data }) => {
       if (storedData !== null) {
         const parsedData = JSON.parse(storedData);
         console.log('Dados armazenados:', parsedData);
+        return parsedData;
       } else {
         console.log('Nenhum dado encontrado');
       }

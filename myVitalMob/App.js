@@ -4,16 +4,18 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SplashScreen,HomeScreens } from './src/modules/renderScreens'; 
 import LoginScreen from './src/Screens/ScreenLogin'
 import ResgiScreen from './src/Screens/ScreenRegistro'
+import Inicio from './src/Screens/Inicio';
 
 const Stack = createStackNavigator();
 
 const App = () => {
     return (
         <NavigationContainer>
-            <Stack.Navigator screenOptions={{
-                headerShown: false
-            }} 
-            initialRouteName="Splash"
+            <Stack.Navigator 
+                screenOptions={{
+                    headerShown: false
+                }} 
+                initialRouteName="Splash"
             >
                 <Stack.Screen name="Splash" component={SplashScreen} />
                 <Stack.Screen name="Home"   component={HomeScreens} />
