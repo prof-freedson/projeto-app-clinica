@@ -58,7 +58,7 @@ export default function Exames({ navigation, route }) {
   return (
     <>
         <View style={styles.header}>
-            <TouchableOpacity activeOpacity={.7} onPress={() => navigation.navigate('Inicio', { userData, docRef})}>
+            <TouchableOpacity activeOpacity={.7} onPress={() => navigation.goBack()}>
                 <Icon name='arrow-circle-left' size={20} />
             </TouchableOpacity>
             <Text>Exames</Text>
@@ -81,7 +81,7 @@ export default function Exames({ navigation, route }) {
             )}
         />
         <View style={styles.lowContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('MarcarExame', {userData, docRef})}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('AgendarExames', {userData, docRef})}>
                 <Text style={styles.buttonText}>Marcar Nova</Text>
             </TouchableOpacity>
         </View>

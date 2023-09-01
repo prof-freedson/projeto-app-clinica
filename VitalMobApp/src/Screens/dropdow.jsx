@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     marginVertical: 10,
     borderRadius: 5,
-    paddingLeft: 15,}
+    paddingLeft: 15,
+  }
  
 });

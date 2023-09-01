@@ -30,7 +30,7 @@ const ScreenLogin = ({ navigation }) => {
     try {
       const credencial = await signInWithEmailAndPassword(auth, email, senha);
       const user = credencial.user;
-      console.log(user);
+      console.log("Usuário Identificado");
       const userCollectionRef = collection(db, 'usuarios');
       const q = query(userCollectionRef, where("userId", "==", user.uid));
       const querySnapshot = await getDocs(q);

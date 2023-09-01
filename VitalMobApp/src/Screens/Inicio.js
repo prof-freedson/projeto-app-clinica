@@ -18,7 +18,7 @@ const Inicio = ({ navigation, route }) => {
             </View >
             <View >
                 <View style={styles.linhaBotao}>
-                    <Pressable style={styles.button} onPress={() => navigation.navigate("Consultas", {userData, docRef})}>
+                    <Pressable style={styles.button} onPress={() => navigation.navigate("InicioConsulta", {userData, docRef})}>
                         <FontAwesomeIcon icon={faUserDoctor} size={40} style={styles.icon} />
                         <Text style={styles.botion}>Consultas</Text>
                     </Pressable>
@@ -47,12 +47,12 @@ const styles = StyleSheet.create({
     },
     tex: {
         fontSize: 1,
-        marginVertical: 30
+        marginVertical: 30,
     },
     text: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: 'black',
+        color: 'white',
         zIndex: 1,
         marginVertical: 240
     },
@@ -95,6 +95,7 @@ const styles = StyleSheet.create({
     position1: {
         position: 'absolute',
         alignItems: 'center',
+        top: 70,
     },
     botaoSobre: {
         position: 'absolute',

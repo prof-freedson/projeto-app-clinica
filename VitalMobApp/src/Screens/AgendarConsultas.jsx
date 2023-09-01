@@ -1,38 +1,126 @@
 import React, { useState } from 'react';
-import { StyleSheet, TextInput, View, Text, Button, Pressable, Platform, TouchableOpacity } from "react-native";
+import { StyleSheet, TextInput, View, Text, Button, Pressable, Modal, Platform, TouchableOpacity } from "react-native";
 import { useFonts, PlayfairDisplay_600SemiBold as playfair } from "@expo-google-fonts/playfair-display";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { format } from 'date-fns';
 import { DropDownPicker } from "react-native-dropdown-picker";
 import Dropd from './dropdow';
+import { db } from '../../firebaseConfig';
+import { addDoc, doc, collection } from "@firebase/firestore";
 
-export default function AgendarConsultas({ navigation }) {
+export default function AgendarConsultas({ navigation, route }) {
+  const userData = route.params.userData;
+  const docRef = route.params.docRef;
+  const [ medico, setMedico ] = React.useState("");
+  const [ data, setData ] = React.useState("");
+  const [ hora, setHora ] = React.useState("");
+
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedTime, setSelectedTime] = useState('08:00');
+  const [selectedTime, setSelectedTime] = useState('Selecione');
   const [showPicker, setShowPicker] = useState(false);
-  const [showTimeModal, setShowTimeModal] = useState(false);
-  const [selectedSpecialty, setSelectedSpecialty] = useState(null);
+  const [showTimeModal, setShowTimeModal] = useState(false); // Estado para controlar a visibilidade do Modal
+
+  const timeOptions = [
+    'Clinico Geral', 'Pediatra', 'Geriatra', 'Dentista', 
+  ];
+
+  const onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || selectedDate;
+    setShowPicker(Platform.OS === 'ios');
+    setSelectedDate(currentDate);
+  };
+
+  const showDatepicker = () => {
+    setShowPicker(true);
+  };
+
+  const formattedDate = format(selectedDate, 'dd/MM/yyyy');
+
+  async function createAppointment() {
+    try {
+        const userDocRef = doc(db, 'usuarios', docRef);
+        const userExamsRef = collection(userDocRef, 'consultas');
+        const getRandomLetters = (length = 1) => Array(length).fill().map(e => String.fromCharCode(Math.floor(Math.random() * 26) + 65)).join('');
+        const getRandomDigits = (length = 1) => Array(length).fill().map(e => Math.floor(Math.random() * 10)).join('');
+        const generatedID = getRandomLetters(5) + getRandomDigits(5);
+
+        await addDoc(userExamsRef, {
+          id: generatedID,
+          titulo: `Consulta com ${selectedTime}`,
+          data: formattedDate,
+          hora: hora,
+        });
+    } catch (e) {
+        console.error("Erro adicionando consulta: ", e);
+    }
+  }
 
  
 
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 30, color: '#1a4252', fontWeight: 'bold', fontFamily: 'playfair' }}>Agende suas Consultas</Text>
-      <TextInput style={styles.textoInput} placeholder="CPF" />
-      <TextInput style={styles.textoInput} placeholder="Nome Completo" />
-      <TextInput style={styles.textoInput} placeholder="Endereço" />
-      <TextInput style={styles.textoInput} placeholder="Telefone" />
-      <Dropd></Dropd>
+      <View style={{ alignItems: 'center' }}>
+      <View>
+        <Button onPress={showDatepicker} title="Selecionar Data" />
+      </View>
+        {showPicker && (
+          // Exibição do calendário com DateTimePicker
+          <DateTimePicker
+            testID="dateTimePicker"
+            value={selectedDate}
+            mode="date"
+            is24Hour={true}
+            display="default"
+            onChange={onChange}
+          />
+          // Fim da exibição do calendário com DateTimePicker
+        )}
+        <Text>Data selecionada: {formattedDate}</Text>
+        <TextInput style={styles.textoInput} placeholder="Hora 14:05" onChangeText={(text) => setHora(text)} />
+
+        <TouchableOpacity onPress={() => setShowTimeModal(true)}>
+          <Text>Selecione a Especialidade:</Text>
+          <Text style={styles.timeButton}>{selectedTime}</Text>
+        </TouchableOpacity>
+
+        {/* Configuração do Modal */}
+        <Modal
+          visible={showTimeModal}
+          transparent={true}
+          animationType="slide"
+        //Final da configuração do modal
+        >
+          {/* Elementos que serão exibidos no Modal */}
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              {timeOptions.map((time, index) => (
+                <TouchableOpacity
+                  key={index}
+                  style={styles.timeOption}
+                  onPress={() => {
+                    setSelectedTime(time);
+                    setShowTimeModal(false);
+                  }}
+                >
+                  <Text>{time}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            {/* Final dos elementos que serão exibidos no Modal  */}
+          </View>
+        </Modal>
+      </View>
     
 
       <Text style={{ color: 'black', marginVertical: 20, marginHorizontal: 50 }}>Ao agendar a consulta, você estará de acordo com os termos de uso e privacidade</Text>
       <View style={styles.linhaBotoes}>
-        <Pressable style={styles.botao}>
+        <Pressable style={styles.botao} onPress={createAppointment}>
           <Text style={{ fontWeight: 'bold', color: 'white' }}>AGENDAR</Text>
         </Pressable>
         <Text>ou</Text>
         <Pressable style={styles.botao}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.goBack()}>
             <Text style={{ fontWeight: 'bold', color: 'white' }}>CANCELAR</Text>
           </TouchableOpacity>
         </Pressable>
@@ -50,7 +138,7 @@ const styles = StyleSheet.create({
   },
   textoInput: {
     height: 40,
-    width: '75%',
+    width: 100,
     backgroundColor: 'white',
     marginVertical: 10,
     borderRadius: 5,
@@ -72,5 +160,13 @@ const styles = StyleSheet.create({
   linkLogin: {
     flexDirection: 'row',
     marginTop: 50
-  }
+  },
+  timeButton: {
+    height: 40,
+    width: 295,
+    backgroundColor: 'white',
+    marginVertical: 10,
+    borderRadius: 5,
+    paddingLeft: 15,
+  },
 });

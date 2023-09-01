@@ -10,6 +10,9 @@ import AboutScreen from './src/Screens/AboutScreen';
 import Exames from './src/Screens/Exames';
 import MarcarExame from './src/Screens/MarcarExame';
 import Consultas from './src/Screens/Consultas';
+import InicioConsulta from './src/Screens/InicioConsulta';
+import Consulta from './src/Screens/Consulta';
+import AgendarConsultas from './src/Screens/AgendarConsultas';
 import MarcarConsulta from './src/Screens/MarcarConsulta';
 
 const Stack = createStackNavigator();
@@ -40,6 +43,9 @@ const App = () => {
                     <Stack.Screen name="Exames" component={Exames} />
                     <Stack.Screen name="MarcarExame" component={MarcarExame} />
                     <Stack.Screen name="Consultas" component={Consultas} />
+                    <Stack.Screen name="Consulta" component={Consulta} />
+                    <Stack.Screen name="InicioConsulta" component={InicioConsulta} />
+                    <Stack.Screen name="AgendarConsultas" component={AgendarConsultas} />
                     <Stack.Screen name="MarcarConsulta" component={MarcarConsulta} />
                     <Stack.Screen
                         name="Registro"

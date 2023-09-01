@@ -3,13 +3,13 @@ import { formToJSON } from 'axios';
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 
+const InicioConsulta = ({ navigation, route }) => {
+  const userData = route.params.userData;
+  const docRef = route.params.docRef;
 
-
-const HomeScreen = ({ navigation }) => {
   const goToAppointmentScreen = () => {
-    navigation.navigate('consultas'); 
+    navigation.navigate('Consulta', { userData, docRef }); 
   };
-  
 
   return (
     <View style={styles.container}>
@@ -159,4 +159,4 @@ img:{
 
 });
 
-export default HomeScreen;
+export default InicioConsulta;

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Text, StatusBar, Image, FlatList } from 'react-native';
+import { StyleSheet, View, Text, StatusBar, Image, FlatList, TouchableOpacity } from 'react-native';
 import { PrimaryButton } from '../components/Button';
 import Icon from '../components/Icon';
 import CardConsulta from '../components/CardConsulta';
@@ -57,7 +57,9 @@ export default function Consultas({ navigation, route }) {
   return (
     <>
         <View style={styles.header}>
-            <Icon name='arrow-circle-left' size={20} />
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Icon name='arrow-circle-left' size={20} />
+            </TouchableOpacity>
             <Text>Consultas</Text>
         </View>
         <FlatList

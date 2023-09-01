@@ -5,8 +5,8 @@ export default function CardConsulta(props) {
     return (
         <View style={styles.cardContainer}>
             <View style={styles.info}>
-                <Text>{props.title}</Text>
-                <Text>Dia: {props.dia}</Text>
+                <Text>{props.titulo}</Text>
+                <Text>Dia: {props.data}</Text>
                 <Text>Hora: {props.hora}</Text>
             </View>
             <TouchableOpacity activeOpacity={.4} onPress={props.onPressIcon}>
