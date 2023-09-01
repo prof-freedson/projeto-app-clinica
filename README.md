@@ -1,5 +1,5 @@
 # 🏥💉 Aplicativo da Clínica Médica
-<img src="./_Logo/App.png" alt="drawing" width="100%"/>
+<img src="./_Logo/App.png" alt="drawing" width="500"/>
 ## Índice
 
 - <a href="funcionalidades">Funcionalidades</a>
