@@ -19,14 +19,12 @@ export default function Exames({ navigation, route }) {
         const userExamsRef = collection(userDocRef, 'exames');
         const q = query(userExamsRef);
         const querySnapshot = await getDocs(q);
-        console.log('passou aqui', docRef);
 
         const fetchedExams = [];
         querySnapshot.forEach((doc) => {
           const examData = doc.data();
           fetchedExams.push(examData);
         });
-        console.log(fetchedExams);
         setExams(fetchedExams);
       } catch (error) {
         console.log(error);
@@ -42,7 +40,6 @@ export default function Exames({ navigation, route }) {
       const userDocRef = doc(db, 'usuarios', docRef);
       const userExamsRef = collection(userDocRef, 'exames');
       const q = query(userExamsRef, where("id", "==", consultID));
-      console.log(q);
       const docSnap = await getDocs(q);
 
       if (docSnap.exists()) {

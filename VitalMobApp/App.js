@@ -8,6 +8,7 @@ import ResgiScreen from './src/Screens/ScreenRegistro';
 import Inicio from './src/Screens/Inicio';
 import AboutScreen from './src/Screens/AboutScreen';
 import Exames from './src/Screens/Exames';
+import AgendarExames from './src/Screens/AgendarExames';
 import MarcarExame from './src/Screens/MarcarExame';
 import Consultas from './src/Screens/Consultas';
 import InicioConsulta from './src/Screens/InicioConsulta';
@@ -41,6 +42,7 @@ const App = () => {
                     <Stack.Screen name="Inicio" component={Inicio} />
                     <Stack.Screen name="Sobre" component={AboutScreen} />
                     <Stack.Screen name="Exames" component={Exames} />
+                    <Stack.Screen name="AgendarExames" component={AgendarExames} />
                     <Stack.Screen name="MarcarExame" component={MarcarExame} />
                     <Stack.Screen name="Consultas" component={Consultas} />
                     <Stack.Screen name="Consulta" component={Consulta} />
