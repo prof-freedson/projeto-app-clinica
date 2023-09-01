@@ -1,6 +1,6 @@
 # 🏥💉 Aplicativo da Clínica Médica
-![VitalMob](./_Logo/App.png = 500x500)
-
+![VitalMob](./_Logo/App.png)
+<img src="./_Logo/App.png" alt="drawing" width="200"/>
 ## Índice
 
 - <a href="funcionalidades">Funcionalidades</a>
