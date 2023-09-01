@@ -1,5 +1,5 @@
 # 🏥💉 Aplicativo da Clínica Médica
-![VitalMob](./Logo/App.png)
+![VitalMob](./_Logo/App.png)
 
 ## Índice
 
