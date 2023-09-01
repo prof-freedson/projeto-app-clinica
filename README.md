@@ -1,5 +1,5 @@
 # 🏥💉 Aplicativo da Clínica Médica
-![VitalMob](./_Logo/App.png)
+![VitalMob](./_Logo/App.png = 500x500)
 
 ## Índice
 
