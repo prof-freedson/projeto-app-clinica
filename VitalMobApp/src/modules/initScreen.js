@@ -22,7 +22,7 @@ const SplashScreen = () => {
     <View style={Styles.container}>
       <Image
         style={{ width: '100%', height: '50%', resizeMode: 'contain' }} // Substituí "objectFit" por "resizeMode"
-        source={{ uri: 'https://www.iconpacks.net/icons/2/free-healthcare-icon-3610-thumb.png' }}
+        source={require('../assets/Logo/Logo.png')}
       />
       <ActivityIndicator size="large" color="#c42a17" />
     </View>

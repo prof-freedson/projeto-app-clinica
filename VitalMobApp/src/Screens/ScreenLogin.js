@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Pressable, Text, Image, Alert, TouchableOpacity, AppState } from 'react-native';
+import { View, Pressable, Text, Image, Alert, TouchableOpacity, AppState, ActivityIndicator } from 'react-native';
 import Input from '../modules/inputConfig';
 import Style from '../css/Style';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -14,6 +14,7 @@ const ScreenLogin = ({ navigation }) => {
   const [appState, setAppState] = useState(AppState.currentState);
   const [ultimaDataVista, setUltimaDataVista] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Novo estado para indicar o carregamento
 
   const handleOpenModal = () => {
     setIsModalVisible(true);
@@ -24,27 +25,31 @@ const ScreenLogin = ({ navigation }) => {
   }
 
   const loginAccount = async () => {
+    setIsLoading(true); // Inicia o indicador de atividade
+
     try {
-        const credencial = await signInWithEmailAndPassword(auth, email, senha);
-        const user = credencial.user;
-        console.log(user);
-        const userCollectionRef = collection(db, 'usuarios');
-        const q = query(userCollectionRef, where("userId", "==", user.uid));
-        const querySnapshot = await getDocs(q);
-        
-        let userData, docRef;
-        querySnapshot.forEach((doc) => {
-          userData = doc.data();
-          docRef = doc.id;
-        });
-  
-        navigation.navigate('Inicio', { userData, docRef });
-  
-      } catch (error) {
-        console.error("Erro no login");
-        console.error("Mensagem: ", error.message);
-        console.error("Código", error.code);
-      }
+      const credencial = await signInWithEmailAndPassword(auth, email, senha);
+      const user = credencial.user;
+      console.log(user);
+      const userCollectionRef = collection(db, 'usuarios');
+      const q = query(userCollectionRef, where("userId", "==", user.uid));
+      const querySnapshot = await getDocs(q);
+
+      let userData, docRef;
+      querySnapshot.forEach((doc) => {
+        userData = doc.data();
+        docRef = doc.id;
+      });
+
+      navigation.navigate('Inicio', { userData, docRef });
+
+    } catch (error) {
+      console.error("Erro no login");
+      console.error("Mensagem: ", error.message);
+      console.error("Código", error.code);
+    } finally {
+      setIsLoading(false); // Encerra o indicador de atividade
+    }
   }
 
   let emaiNewValue = "";
@@ -114,15 +119,12 @@ const ScreenLogin = ({ navigation }) => {
     }
   };
 
-
-
-
   return (
     <View style={Styles.styles.container}>
       <View style={Styles.styles.container.ContainerImgLogo}>
         <Image
           style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-          source={{ uri: 'https://www.iconpacks.net/icons/2/free-healthcare-icon-3610-thumb.png' }}
+          source={require('../assets/Logo/Logo.png')}
         />
       </View>
 
@@ -149,13 +151,19 @@ const ScreenLogin = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={Styles.styles.container.ContainerBoxInput}>
-          <Pressable
-            style={[Styles.styles.container.ContainerBoxInput.ButtonSend]}
-            onPress={loginAccount}>
-            <Text style={Styles.styles.container.ContainerBoxInput.ButtonSend.Text}>
-              Login
-            </Text>
-          </Pressable>
+          {isLoading ? (
+            <View style={{ display:'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <ActivityIndicator size="large" color="#DD242C" />
+            </View>
+          ) : (
+            <Pressable
+              style={[Styles.styles.container.ContainerBoxInput.ButtonSend]}
+              onPress={loginAccount}>
+              <Text style={Styles.styles.container.ContainerBoxInput.ButtonSend.Text}>
+                Login
+              </Text>
+            </Pressable>
+          )}
         </View>
 
         <View style={Styles.styles.container.ContainerBoxInput}>

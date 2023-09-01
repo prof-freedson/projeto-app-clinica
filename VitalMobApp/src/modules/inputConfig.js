@@ -9,8 +9,8 @@ const Styles = {
 
 const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''], Value = [''], id }) => {
   const [handeText, setHandeText] = useState('');
-  const [handeView, setHandeView] = useState(true);
-  const [handeye, setHandeye] = useState('eye')
+  const [handeView, setHandeView] = useState(false);
+  const [handeye, setHandeye] = useState('eye-slash')
 
 
   // if(id === "Email"){
@@ -37,12 +37,12 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''], Value
     };
 
     function viewButton() {
-      if (handeView === true) {
-        setHandeye("eye-slash")
-        setHandeView(false);
-      } else {
+      if (handeView === false) {
         setHandeye("eye")
         setHandeView(true);
+      } else {
+        setHandeye("eye-slash")
+        setHandeView(false);
       }
     }
 
@@ -60,7 +60,7 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''], Value
                 value={
                   id === "Email" || id === "Senha"
                     ? Value[0] || handeText
-                    : false
+                    : null
                 }
               />
             </View>
@@ -83,7 +83,7 @@ const InputConfig = ({ inputConf = ['', '', '', '', '', ''], Label = [''], Value
             value={
               id === "Email" || id === "Senha"
                 ? Value[0] || handeText
-                : false
+                : null
             }
           />
         );
