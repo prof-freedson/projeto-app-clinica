@@ -13,7 +13,26 @@ admin.initializeApp({
 });
 
 const db = admin.firestore();
-const userCollection = db.collection('users');
+const userCollection = db.collection('usuarios');
+
+
+// userCollection.get()
+// .then(dados =>{
+//   dados.forEach(doc => {
+//     const dados = doc.data();
+//     console.log(dados)
+//   });
+
+// })
+
+const filiaisCollection = db.collection('filiais')
+
+filiaisCollection.get()
+.then(dados =>{
+   dados.forEach(doc=>{
+      console.log(doc)
+   })
+})
 
 // Configuração do Body Parser para processar dados do formulário
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -56,7 +75,7 @@ app.get('/Api', (req, res) => {
 
       snapshot.forEach(doc => {
         const dados = doc.data();
-        const token_conta = dados.token;
+        const token_conta = dados.userId;
 
         if (token_formulario === token_conta) {
           tokenValido = true;
@@ -87,9 +106,9 @@ app.post('/login', (req, res) => {
 
       snapshot.forEach(doc => {
         const dados = doc.data();
-        const account_conta = dados.Conta;
-        const password_conta = dados.senha_conta;
-        const token_conta = dados.token;
+        const account_conta = dados.email;
+        const password_conta = dados.senha;
+        const token_conta = dados.userId;
 
         if (username === account_conta && password === password_conta && token === token_conta) {
           // Se as credenciais forem válidas, redirecione para a página '/Api'

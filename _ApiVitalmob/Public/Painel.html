@@ -32,72 +32,75 @@
                                 <!-- Nome da Filial -->
                                 <div class="form-group">
                                     <label for="nome">Nome da Filial:</label>
-                                    <input type="text" class="form-control" id="nome" placeholder="Digite o nome da filial" required>
+                                    <input type="text" class="form-control" id="nome" name="nome" placeholder="Digite o nome da filial">
                                 </div>
                     
                                 <!-- Data de Criação -->
                                 <div class="form-group">
                                     <label for="dataCriacao">Data de Criação:</label>
-                                    <input type="date" class="form-control" id="dataCriacao" required>
+                                    <input type="date" class="form-control" id="dataCriacao" name="dataCriacao">
                                 </div>
                     
                                 <!-- Mapa (Latitude e Longitude) -->
                                 <div class="form-group">
                                     <label for="latitude">Latitude:</label>
-                                    <input type="text" class="form-control" id="latitude" placeholder="Digite a latitude" required>
+                                    <input type="text" class="form-control" id="latitude" placeholder="Digite a latitude" name="latitude" >
                                 </div>
                                 <div class="form-group">
                                     <label for="longitude">Longitude:</label>
-                                    <input type="text" class="form-control" id="longitude" placeholder="Digite a longitude" required>
+                                    <input type="text" class="form-control" id="longitude" placeholder="Digite a longitude" name="longitude" >
                                 </div>
                     
                                 <!-- Informações de Contato -->
                                 <div class="form-group">
                                     <label for="email">E-mail de Contato:</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Digite o e-mail de contato" required>
+                                    <input type="email" class="form-control" id="email" placeholder="Digite o e-mail de contato" name="email" >
                                 </div>
                                 <div class="form-group">
                                     <label for="telefone">Telefone de Contato:</label>
-                                    <input type="text" class="form-control" id="telefone" placeholder="Digite o telefone de contato" required>
+                                    <input type="text" class="form-control" id="telefone" placeholder="Digite o telefone de contato" name="telefone" >
                                 </div>
                                 <div class="form-group">
                                     <label for="linkContato">Link de Contato:</label>
-                                    <input type="text" class="form-control" id="linkContato" placeholder="Digite o link de contato">
+                                    <input type="text" class="form-control" id="linkContato" placeholder="Digite o link de contato" name="linkContato">
                                 </div>
                     
                                 <!-- Site e Imagem -->
                                 <div class="form-group">
                                     <label for="site">Site:</label>
-                                    <input type="text" class="form-control" id="site" placeholder="Digite o site da filial">
+                                    <input type="text" class="form-control" id="site" placeholder="Digite o site da filial" name="site">
                                 </div>
                                 <div class="form-group">
                                     <label for="imagem">URL da Imagem:</label>
-                                    <input type="text" class="form-control" id="imagem" placeholder="Digite a URL da imagem">
+                                    <input type="text" class="form-control" id="imagem" name="imagem" placeholder="Digite a URL da imagem" name="imagem">
                                 </div>
                     
-                                <!-- Produtos (Nome, Descrição e Preço) -->
-                                <div class="form-group">
-                                    <label for="produtoNome">Nome do Produto:</label>
-                                    <input type="text" class="form-control" id="produtoNome" placeholder="Digite o nome do produto">
-                                </div>
-                                <div class="form-group">
-                                    <label for="descricao">Descrição do Produto:</label>
-                                    <textarea class="form-control" id="descricao" placeholder="Digite a descrição do produto"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="preco">Preço do Produto:</label>
-                                    <input type="number" step="0.01" class="form-control" id="preco" placeholder="Digite o preço do produto">
-                                </div>
+
                     
                                 <!-- Horário de Funcionamento -->
                                 <h4>Horário de Funcionamento:</h4>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="segunda">
+                                    <input class="form-check-input" type="checkbox" id="segunda" name="segunda">
                                     <label class="form-check-label" for="segunda">Segunda-feira</label>
                                 </div>
-                                <!-- Repita o bloco de form-check para cada dia da semana -->
-                    
-                                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="terca" id="terca">
+                                    <label class="form-check-label" for="segunda">Terça-feira</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="quarta" name="quarta">
+                                    <label class="form-check-label" for="segunda">Quarta-feira</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="quinta" name="quinta">
+                                    <label class="form-check-label" for="segunda">Quinta-feira</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="sexta" name="sexta">
+                                    <label class="form-check-label" for="segunda">Sexta-feira</label>
+                                </div>
+     
+                             
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -166,5 +169,58 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+
+        const formulario_add_filiais = document.getElementById("formulario_add_filiais")
+
+        formulario_add_filiais.addEventListener('submit',(e)=>{
+
+            const nome = formulario_add_filiais.nome.value
+            const dataCriacao = formulario_add_filiais.dataCriacao.value
+            const latitude = formulario_add_filiais.latitude.value
+            const longitude = formulario_add_filiais.longitude.value
+            const email = formulario_add_filiais.email.value
+            const telefone = formulario_add_filiais.telefone.value
+            const linkContato = formulario_add_filiais.linkContato.value
+            const site = formulario_add_filiais.site.value
+            const imagem = formulario_add_filiais.imagem.value
+            	
+
+            // horario de Fucionamento
+
+            const segunda = formulario_add_filiais.segunda
+            const terca = formulario_add_filiais.terca
+            const quarta = formulario_add_filiais.quarta
+            const quinta = formulario_add_filiais.quinta
+            const sexta  = formulario_add_filiais.sexta
+
+
+            console.log(nome)
+            console.log(dataCriacao)
+            console.log(latitude)
+            console.log(longitude)
+            console.log(email)
+            console.log(telefone)
+            console.log(linkContato)
+            console.log(site)
+            console.log(imagem)
+            console.log(`segunda = ${segunda.checked}`)
+            console.log(`terça = ${terca.checked}`)
+            console.log(`quarta = ${quarta.checked}`)
+            console.log(`quinta = ${quinta.checked}`)
+            console.log(`sexta = ${sexta.checked}`)
+
+
+            
+            
+
+
+            
+            e.preventDefault()
+        })
+
+    </script>
+
 </body>
 </html>
