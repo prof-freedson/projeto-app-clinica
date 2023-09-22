@@ -6,8 +6,8 @@ export default function CartaoExame({ nome, data, hora, preco, orientaTitulo, or
 
             <TouchableOpacity>
                 <ImageBackground style={{ width: 111, height: 120 }} source={imagem} imageStyle={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }}>
-                    
-                    <Text style={{ alignItems: 'center', justifyContent: 'center', color: '#fff', backgroundColor: '#dd242cc0', fontSize: 10, fontWeight: 'bold', margin: 10, borderRadius: 5, lineHeight: 10, textAlign: 'center' }}>Clique na imagem {'\n'} para obter mais{'\n'} informações!</Text>
+
+                    <Text style={{ alignItems: 'center', justifyContent: 'center', color: '#fff', backgroundColor: '#dd242cc0', fontSize: 10, fontWeight: 'bold', margin: 10, borderRadius: 5, lineHeight: 10, textAlign: 'center' }}>Clique e {'\n'} saiba mais!</Text>
                 </ImageBackground>
             </TouchableOpacity>
 
