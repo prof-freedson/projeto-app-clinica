@@ -1,10 +1,12 @@
 {
     "filial": {
-      "nome": "Filial A",
+      "nome": "Filial-A",
       "data_criacao": "2023-09-20",
       "mapa": {
         "latitude": 40.7128,
-        "longitude": -74.0060
+        "longitude": -74.0060,
+        "latitudeDelta":40.7128,
+        "longitudeDelta":-74.0060
       },
       "informacoes_contato": {
         "email": "filiala@example.com",
@@ -12,19 +14,11 @@
         "link_contato": "https://example.com/contato-filiala"
       },
       "site": "https://www.filiala.com",
-      "imagem": "https://example.com/filiala.jpg", 
-      "produtos": [
-        {
-          "produto_nome": "Produto X",
-          "descricao": "Descrição do Produto X",
-          "preco": 19.99
-        },
-        {
-          "produto_nome": "Produto Y",
-          "descricao": "Descrição do Produto Y",
-          "preco": 29.99
-        }
-      ],
+      "imagem": {
+        "img-1":"https://i1.wp.com/www.dci.com.br/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/09/perfil-sem-foto-1024x655.jpg.webp",
+        "img-2":"https://i1.wp.com/www.dci.com.br/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/09/perfil-sem-foto-1024x655.jpg.webp",
+        "img-3":"https://i1.wp.com/www.dci.com.br/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/09/perfil-sem-foto-1024x655.jpg.webp"
+      }, 
       "horario_funcionamento": {
         "segunda": "9:00 - 18:00",
         "terca": "9:00 - 18:00",
