@@ -6,6 +6,7 @@ import MapView from 'react-native-maps';
 import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion-collapse-react-native';
 import { Picker } from '@react-native-picker/picker';
 import Carrosel from '../modules/Carrosel';
+import Controller from '../modules/Controller'
 
 
 const filiais = () => {
@@ -34,10 +35,7 @@ const filiais = () => {
                     <Text>Escolha o Local</Text>
                </View>
                 <View>
-                    <Picker>
-                        <Picker.Item label="Filial -1" value={"01"} />
-                        <Picker.Item label="Filial -2" value={"02"}/>
-                    </Picker>
+                    <Controller type={"select"} />
                 </View>
             </View>
             <View style={Style.containerBox}>
