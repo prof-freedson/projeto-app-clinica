@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SplashScreen, HomeScreens } from './src/modules/renderScreens';
-
 import LoginScreen from './src/Screens/ScreenLogin';
 import ResgiScreen from './src/Screens/ScreenRegistro';
 import Inicio from './src/Screens/Inicio';
