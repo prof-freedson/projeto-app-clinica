@@ -4,6 +4,7 @@ import Filiais from './src/Screens/Filiais'
 export default function App() {
   return (
     <View style={styles.container}>
+      <StatusBar style='dark' hidden={true} />
       <Filiais />
     </View>
   );

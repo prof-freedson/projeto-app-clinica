@@ -1,66 +1,82 @@
 import React, { useEffect, useState } from 'react';
-import { Image, View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView } from "react-native"
-import Icons from '@expo/vector-icons/FontAwesome'
+import { ActivityIndicator, Image, View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import MapView from 'react-native-maps';
-import { Collapse, CollapseHeader, CollapseBody, AccordionList } from 'accordion-collapse-react-native';
+import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import { Picker } from '@react-native-picker/picker';
 import Carrosel from '../Modules/Carrosel';
 
 const MyApi = ({ type }) => {
 
-  const [nomefiliais, setNomeFiliais] = useState([])
-  const [dados, setDados] = useState()
-  const [selected, setSelected] = useState()
+  const [nomefiliais, setNomeFiliais] = useState([]);
+  const [dados, setDados] = useState([]);
+  const [selected, setSelected] = useState(0); // Filial inicial selecionada
 
-  //configurnações das Filiais
+  const [globalnome, setGlobalNome] = useState({ nome: null, data_criacao: null });
+  const [isLoading, setIsLoading] = useState(true); // Estado de carregamento
 
-  const [imgfiliais, setImgFiliais] = useState([])
-  const [mapafiliais, setMapaFiliais] = useState([])
+  // Configurações das Filiais
+  const [imgfiliais, setImgFiliais] = useState([]);
+  const [mapafiliais, setMapaFiliais] = useState([]);
+  const [contactfiliais, setContactFiliais] = useState([]);
 
-  function selectSetFilial(data) {
-    const item_selecionado = data[selected]
+  function selectSetFilial(data, selectedFilial) {
+    const item_selecionado = data[selectedFilial];
 
-    if (item_selecionado !== null && item_selecionado != "undefined") {
-      const imgFiliaisData = item_selecionado.imagens
-      if (imgFiliaisData.length <= 3 && imgFiliaisData != null) {
-        console.log("imgens não Encontradas...");
-      }
-      setImgFiliais(imgFiliaisData)
+    if (item_selecionado) {
+      const globalItem = item_selecionado.dadosFiliais;
+      setGlobalNome(globalItem);
 
-      const mapaFiliaisData = item_selecionado.map(filial => filial.mapa);
-      setMapaFiliais(mapaFiliaisData)
-      // const infoContatoFiliaisData = data.map(filial => filial.informacoes_contato);
-      // const horarioFucionamentoFilialData = data.map(filial => filial.horario_funcionamento);
+      const imgFiliaisData = item_selecionado.imagens || [];
+      setImgFiliais(imgFiliaisData);
+
+      const mapaFiliaisData = item_selecionado.mapa || [];
+      setMapaFiliais(mapaFiliaisData);
+
+      const infoContatoFiliaisData = item_selecionado.informacoes_contato || [];
+      setContactFiliais(infoContatoFiliaisData);
     } else {
-      console.log("Carregando...")
+      console.log("Filial selecionada não válida.");
+      // Limpe os estados para evitar informações antigas.
+      setGlobalNome({ nome: null, data_criacao: null });
+      setImgFiliais([]);
+      setMapaFiliais([]);
+      setContactFiliais([]);
     }
-
-
   }
-
-
 
   useEffect(() => {
     const fetchApiData = async () => {
       try {
-        const header ={
-          ip:"<Ipv4 />",
-          token:"AxBEX85u38diG4ODAHgutrICTNb2",
-          Headers:{
-            mode:"cors",
-            cache:"default"
+        const header = {
+          ip: "",
+          token: "AxBEX85u38diG4ODAHgutrICTNb2",
+          Headers: {
+            mode: "cors",
+            cache: "default"
           }
         }
-        const response = await fetch(`http://${header.ip}:3000/Api/dados?token=${header.token}`,header.Headers);
+        const response = await fetch(`http://${header.ip}:3000/Api/dados?token=${header.token}`, header.Headers);
         if (!response.ok) {
           throw new Error("Erro na Conexão Api...");
         }
         const data = await response.json();
         if (type === "select") {
           const nomeFiliais = data.map(filial => filial.dadosFiliais);
-          setDados(data)
-          setNomeFiliais(nomeFiliais)
+          setDados(data);
+          setNomeFiliais(nomeFiliais);
+          // Defina as informações da primeira filial como globais ao iniciar.
+          const globalItem = nomeFiliais[selected];
+          setGlobalNome(globalItem);
+          const imgFiliaisData = data[selected].imagens || [];
+          setImgFiliais(imgFiliaisData);
+          const mapaFiliaisData = data[selected].mapa || [];
+          setMapaFiliais(mapaFiliaisData);
+          const infoContatoFiliaisData = data[selected].informacoes_contato || [];
+          setContactFiliais(infoContatoFiliaisData);
         }
+        // Quando os dados são carregados com sucesso, defina o estado de carregamento como falso.
+        setIsLoading(false);
       } catch (error) {
         console.error(`Erro ${error}`);
       }
@@ -68,112 +84,159 @@ const MyApi = ({ type }) => {
     fetchApiData();
   }, [type]);
 
+  if (isLoading) {
+    // Mostrar o componente de carregamento enquanto os dados estão sendo carregados.
+    return (
+      <View style={Style.loadingContainer}>
+        <ActivityIndicator size="large" color="#0000ff" />
+      </View>
+    );
+  }
+
   return (
     <View style={Style.container}>
       <View style={Style.containerBox}>
-        <View>
-          <Text>Filiais</Text>
-        </View>
+        <Text style={{fontSize:30}}>Filiais VitalMob</Text>
       </View>
       <View style={Style.containerBox}>
-        <View>
-          <Text>Escolha o Local</Text>
-        </View>
-        <View>
-          <Picker
-            selectedValue={selected}
-            onValueChange={(itemValue) => {
-              setSelected(itemValue);
-              selectSetFilial(dados)
-            }}
-            mode="dialog"
-          >
-            {nomefiliais.map((item, index) => (
-              <Picker.Item label={item.nome} value={nomefiliais.length - 1 - index} />
-            ))}
-          </Picker>
-        </View>
+        <Text>Escolha as Filiais Perto de Você</Text>
+        <Picker
+          selectedValue={selected}
+          onValueChange={(itemValue) => {
+            setSelected(itemValue);
+            selectSetFilial(dados, itemValue); // Passar o índice da filial selecionada
+          }}
+          mode="dialog"
+        >
+          {nomefiliais.map((item, index) => (
+            <Picker.Item key={index} label={item.nome} value={index} />
+          ))}
+        </Picker>
       </View>
       <View style={Style.containerBox}>
         <View style={{ width: '100%', height: 180 }}>
-          {imgfiliais.map(img => (
-            img != null ? (
-              <Carrosel
-                imgs={Object.values(img)}
+          {imgfiliais.map((img, index) => (
+            img ? (
+              <Carrosel key={index} imgs={Object.values(img)} />
+            ) : (
+              <Image key={index} source={{ uri: "https://i1.wp.com/www.dci.com.br/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/09/perfil-sem-foto-1024x655.jpg.webp" }} />
+            )
+          ))}
+        </View>
+      </View>
+      <View style={Style.containerBox}>
+        <Text>Localização</Text>
+        <View style={{ height: '20%' }}>
+          {mapafiliais.map((dados, index) => (
+            dados ? (
+              <MapView
+                key={index}
+                style={Style.maps}
+                initialRegion={{
+                  latitude: dados.latitude,
+                  longitude: dados.longitude,
+                  latitudeDelta: dados.latitudeDelta,
+                  longitudeDelta: dados.longitudeDelta,
+                }}
               />
             ) : (
-              <Image source={{ uri: "https://i1.wp.com/www.dci.com.br/wp-content/webp-express/webp-images/doc-root/wp-content/uploads/2020/09/perfil-sem-foto-1024x655.jpg.webp" }} />
+              <Text key={index}>Mapa Carregando...</Text>
             )
           ))}
         </View>
       </View>
       <View style={Style.containerBox}>
         <View>
-          <Text>Map:</Text>
-        </View>
-        <View style={{ height: '20%' }}>
-          {/* <MapView
-            style={Style.maps}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-          /> */}
-          {mapafiliais.map(dados =>(
-              console.log(dados)
-          ))}
-        </View>
-      </View>
-      <View style={Style.containerBox}>
-        <View>
-          <Text>Info</Text>
+          {globalnome.nome === null || globalnome.data_criacao === null ? (
+            <View>
+              <Text>Informações</Text>
+              <Text>Criação</Text>
+            </View>
+          ) : (
+            <View>
+              <Text>Informações: {globalnome.nome}</Text>
+              <Text>Criação: {globalnome.data_criacao}</Text>
+            </View>
+          )}
         </View>
         <View style={{ padding: 5 }}>
-          <ScrollView style={{ height: 130 }}
-            scrollEnabled={true}
-            keyboardShouldPersistTaps={"handled"}
-          >
-            <Collapse style={Style.Accoddion}>
-              <CollapseHeader style={Style.Accoddion.CollapseHeader}>
-                <View>
-                  <Text>Sobre</Text>
-                </View>
-              </CollapseHeader>
-              <CollapseBody style={Style.Accoddion.CollapseBody}>
-                <Text>Informações sobre a Filial</Text>
-              </CollapseBody>
-
-            </Collapse>
-            <Collapse style={Style.Accoddion}>
-              <CollapseHeader style={Style.Accoddion.CollapseHeader}>
-                <View>
-                  <Text>Site</Text>
-                </View>
-              </CollapseHeader>
-              <CollapseBody style={Style.Accoddion.CollapseBody}>
-                <Text>Informações sobre o site</Text>
-              </CollapseBody>
-            </Collapse>
-            <Collapse style={Style.Accoddion}>
-              <CollapseHeader style={Style.Accoddion.CollapseHeader}>
-                <View>
-                  <Text>Contato</Text>
-                </View>
-              </CollapseHeader>
-              <CollapseBody style={Style.Accoddion.CollapseBody}>
-                <Text>Informações sobre o Contato</Text>
-              </CollapseBody>
-            </Collapse>
+          <ScrollView style={{ height:120 }}>
+          <Collapse style={Style.Accoddion}>
+            <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+              <View>
+                <Text>Informações sobre a Filial  <Text style={{ color: 'red' }}>Click !!!</Text></Text>
+              </View>
+            </CollapseHeader>
+            <CollapseBody style={Style.Accoddion.CollapseBody}>
+              <ScrollView style={{ height:130}} scrollEnabled={true} keyboardShouldPersistTaps={"handled"}>
+                {contactfiliais.map((item, index) => (
+                  <View key={index}>
+                    <Collapse style={Style.Accoddion}>
+                      <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+                        <View>
+                          <Text><FontAwesome name="phone" size={16} /> Telefone para Contato</Text>
+                        </View>
+                      </CollapseHeader>
+                      <CollapseBody style={Style.Accoddion.CollapseBody}>
+                        <Text>{item.telefone}</Text>
+                      </CollapseBody>
+                    </Collapse>
+                    <Collapse style={Style.Accoddion}>
+                      <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+                        <View>
+                          <Text><FontAwesome name="envelope" size={16} /> Email Filial</Text>
+                        </View>
+                      </CollapseHeader>
+                      <CollapseBody style={Style.Accoddion.CollapseBody}>
+                        <Text>{item.email}</Text>
+                      </CollapseBody>
+                    </Collapse>
+                    <Collapse style={Style.Accoddion}>
+                      <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+                        <View>
+                          <Text><FontAwesome name="globe" size={16} /> Site da Filial</Text>
+                        </View>
+                      </CollapseHeader>
+                      <CollapseBody style={Style.Accoddion.CollapseBody}>
+                        <Text>{item.link_contato}</Text>
+                      </CollapseBody>
+                    </Collapse>
+                  </View>
+                ))}
+              </ScrollView>
+            </CollapseBody>
+          </Collapse>
+          <Collapse style={Style.Accoddion}>
+            <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+              <View>
+                <Text>Horarios de Fucionamento  <Text style={{ color: 'red' }}>Click !!!</Text></Text>
+              </View>
+            </CollapseHeader>
+            <CollapseBody style={Style.Accoddion.CollapseBody}>
+              <ScrollView style={{ height: 130 }} scrollEnabled={true} keyboardShouldPersistTaps={"handled"}>
+                {contactfiliais.map((item, index) => (
+                  <View key={index}>
+                    <Collapse style={Style.Accoddion}>
+                      <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+                        <View>
+                          <Text><FontAwesome name="calendar" size={16} /> Fucionamento </Text>
+                        </View>
+                      </CollapseHeader>
+                      <CollapseBody style={Style.Accoddion.CollapseBody}>
+                        <Text>{item.telefone}</Text>
+                      </CollapseBody>
+                    </Collapse>
+                  </View>
+                ))}
+              </ScrollView>
+            </CollapseBody>
+          </Collapse>
           </ScrollView>
         </View>
       </View>
     </View>
   );
-
 };
-
 
 const Style = StyleSheet.create({
   container: {
@@ -195,7 +258,6 @@ const Style = StyleSheet.create({
   },
   Accoddion: {
     width: '100%',
-    // backgroundColor:'gray',
     Collapse: {
       width: '100%',
       padding: 10,
@@ -210,12 +272,15 @@ const Style = StyleSheet.create({
     },
     CollapseBody: {
       width: '100%',
-      padding: 10,
       backgroundColor: '#ccc',
-      marginTop: 5
+      marginTop: 5,
     }
-  }
-})
-
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
 
 export default MyApi;
