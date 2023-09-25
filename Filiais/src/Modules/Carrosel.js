@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Image, Text, StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
 
-const Carrosel = ({ imgs, captions }) => {
+const Carrosel = ({imgs}) => {
   return (
     <Swiper
       style={styles.wrapper}
@@ -16,9 +16,6 @@ const Carrosel = ({ imgs, captions }) => {
       {imgs.map((img, index) => (
         <View style={styles.slide} key={index}>
           <Image source={{ uri: img }} style={styles.image} resizeMode="cover" />
-          {captions && captions[index] && (
-            <Text style={styles.caption}>{captions[index]}</Text>
-          )}
         </View>
       ))}
     </Swiper>
