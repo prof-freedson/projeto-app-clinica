@@ -291,11 +291,13 @@ app.post('/login', (req, res) => {
         const account_conta = dados.email;
         const password_conta = dados.senha;
         const token_conta = dados.userId;
-                                     // usar Token && token === token_conta
+
+
+        // usar Token && token === token_conta
         if (username === account_conta && password === password_conta) {
           // Se as credenciais forem válidas, redirecione para a página '/Api'
           userFound = true;
-          res.redirect(`/Api?token=${token}`);
+          res.redirect(`/Api?token=${token_conta}`);
         }
       });
 
@@ -309,6 +311,14 @@ app.post('/login', (req, res) => {
       res.redirect('/login?error=Dados');
     });
 });
+
+userCollection.get()
+.then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    const idDocumento = doc.data();
+    console.log(idDocumento)
+  });
+})
 
 // const filiaisCollectionPost = db.collection('filiais');
 

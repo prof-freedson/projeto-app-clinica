@@ -42,7 +42,7 @@ const MyApi = ({ type }) => {
       const horarioFiliaisFuc = item_selecionado.horario_funcionamento || []
       setHoraFiliais(horarioFiliaisFuc)
 
-      console.log(item_selecionado.horario_funcionamento)
+
 
 
     } else {
@@ -52,6 +52,7 @@ const MyApi = ({ type }) => {
       setImgFiliais([]);
       setMapaFiliais([]);
       setContactFiliais([]);
+      setHoraFiliais([])
     }
   }
 
@@ -59,8 +60,8 @@ const MyApi = ({ type }) => {
     const fetchApiData = async () => {
       try {
         const header = {
-          ip: "<Ipv4 ?>",
-          token: "",
+          ip: "192.168.207.152",
+          token: "AxBEX85u38diG4ODAHgutrICTNb2",
           Headers: {
             mode: "cors",
             cache: "default"
@@ -84,6 +85,8 @@ const MyApi = ({ type }) => {
           setMapaFiliais(mapaFiliaisData);
           const infoContatoFiliaisData = data[selected].informacoes_contato || [];
           setContactFiliais(infoContatoFiliaisData);
+          const horarioFiliaisFuc = data[selected].horario_funcionamento || []
+          setHoraFiliais(horarioFiliaisFuc)
         }
         // Quando os dados são carregados com sucesso, defina o estado de carregamento como falso.
         setIsLoading(false);
@@ -98,7 +101,8 @@ const MyApi = ({ type }) => {
     // Mostrar o componente de carregamento enquanto os dados estão sendo carregados.
     return (
       <View style={Style.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
+        <Text style={{color:'red',fontWeight:'600'}}>Buscando Dados... 🔍</Text>
+        <ActivityIndicator size="large" color="red" />
       </View>
     );
   }
@@ -137,20 +141,24 @@ const MyApi = ({ type }) => {
       <View style={Style.containerBox}>
         <Text>Localização</Text>
         <View style={{ height: '20%' }}>
-          {mapafiliais.map((dados, index) => (
-            dados ? (
-              <MapView
-                key={index}
-                style={Style.maps}
-                initialRegion={{
-                  latitude: dados.latitude,
-                  longitude: dados.longitude,
-                  latitudeDelta: dados.latitudeDelta,
-                  longitudeDelta: dados.longitudeDelta,
-                }}
-              />
+          {mapafiliais.map((item, index) => (
+            item ? (
+              index ? (
+                <Text>Index Não Encontrado</Text>
+              ) : (
+                <MapView
+                  key={index}
+                  style={Style.maps}
+                  initialRegion={{
+                    latitude: Number(item.latitude),
+                    longitude: Number(item.longitude),
+                    latitudeDelta: Number(item.latitudeDelta),
+                    longitudeDelta: Number(item.longitudeDelta),
+                  }}
+                />
+              )
             ) : (
-              <Text key={index}>Mapa Carregando...</Text>
+              <Text key={index}>Carrgando dados...</Text>
             )
           ))}
         </View>
@@ -240,7 +248,8 @@ const MyApi = ({ type }) => {
               <CollapseBody style={Style.Accoddion.CollapseBody}>
                 <ScrollView style={{ height: 360 }} scrollEnabled={true} keyboardShouldPersistTaps={"handled"}>
                   {horafiliais.map((item, index) => (
-                    <View key={index} style={{ borderWidth: 1, borderColor: 'black', }}>
+                    item?(
+                      <View key={index} style={{ borderWidth: 1, borderColor: 'black', }}>
                       <Collapse>
                         <CollapseHeader style={{ backgroundColor: 'red', padding: 10, }}>
                           <View>
@@ -257,7 +266,10 @@ const MyApi = ({ type }) => {
                           <Text style={{ backgroundColor: '#ccc', padding: 10, marginTop: 4 }}>domingo {item.domingo}</Text>
                         </CollapseBody>
                       </Collapse>
-                    </View>
+                    </View>                      
+                    ):(
+                      <Text key={index}>Dados Carregando...</Text>
+                    )
                   ))}
                 </ScrollView>
               </CollapseBody>
@@ -267,6 +279,7 @@ const MyApi = ({ type }) => {
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           {contactfiliais.map((item, index) => (
             <TouchableOpacity style={Style.buttonContainer}
+              key={index}
               onPress={() =>
                 Linking.canOpenURL("whatsapp://send?text=oi").then(supported => {
                   if (supported) {

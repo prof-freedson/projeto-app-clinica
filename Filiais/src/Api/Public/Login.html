@@ -221,15 +221,7 @@
                         <input type="text" name="password" class="_input" id="senha" required>
                     </div>
                 </div>
-                <div class="container-login-input-label">
-                    <div>
-                        <label for="nome" class="_label">Token:</label>
-                    </div>
-                    <div>
-                        <input type="text" name="token" class="_input" id="token" >
-                    </div>
-                </div>
-
+                
                 <div class="container-login-button">
                     <div>
                         <button class="button-cancelar">Cancel</button>
@@ -253,10 +245,9 @@
 
             const nome = _formulario_.nome.value;
             const senha = _formulario_.senha.value;
-            const token = _formulario_.token.value; 
 
                         
-                if(nome === "" || senha === "" || token===""){
+                if(nome === "" || senha === ""){
                     alert("Preencha todos os Campos *")
                 }
                 else{
@@ -276,15 +267,9 @@
                     senhaInput.name = 'password';
                     senhaInput.value = senha;
 
-                    const tokenInput = document.createElement('input');
-                    tokenInput.type = 'hidden';
-                    tokenInput.name = 'token';
-                    tokenInput.value = token;
-
                     // Anexe os campos de input ao formulário oculto
                     hiddenForm.appendChild(nomeInput);
                     hiddenForm.appendChild(senhaInput);
-                    hiddenForm.appendChild(tokenInput);
 
                     // Anexe o formulário oculto ao corpo do documento e envie-o
                     document.body.appendChild(hiddenForm);
