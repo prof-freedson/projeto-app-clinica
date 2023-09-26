@@ -34,7 +34,7 @@ export default function Inicio({ navigation, route }) {
       orientaTitulo: 'Preparo:',
       orientaDetalhes: "Trazer documento com foto, cartão do convênio, pedido médico e guia autorizada pelo convênio(quando necessário); \n\nChegar 15 minutos antes do horário agendado, após 15 minutos de atraso poderá não ser atendido; \n\nPacientes menores de 18 anos ou maiores que 65 anos deverão vir acompanhados de um responsável legal, que deverá permanecer no local até o final do exame; \n\nConferir peso e altura ANTES DE VIR FAZER O EXAME; \n\nTrazer exames cardiológicos recentes (se houver); \n\nNão é necessário jejum para esse exame.",
       preco: '259,00',
-      imagem: require('../assets/images/hemo.jpg')
+      imagem: require('../assets/images/ecocardio.jpg')
     },
     {
       nome: 'Densitometria Óssea',

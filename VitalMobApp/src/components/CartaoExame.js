@@ -1,10 +1,11 @@
 import { Alert, Text, Image, View, Pressable, StyleSheet, TouchableOpacity, ImageBackground } from "react-native";
 
-export default function CartaoExame({ nome, data, hora, preco, orientaTitulo, orientaDetalhes, imagem }) {
+export default function CartaoExame({ nome, data, hora, preco, orientaTitulo, orientaDetalhes, imagem, pressed }) {
+
     return (
         <View style={styles.exameImagem}>
-            <TouchableOpacity>
-                <ImageBackground style={{ width: 111, height: 120 }} source={imagem} imageStyle={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }}>
+            <TouchableOpacity onPress={pressed}>
+                <ImageBackground style={{ width: 111, height: 120 }} source={imagem} imageStyle={{ borderTopLeftRadius: 10, borderBottomLeftRadius: 10 }} >
                     <Text style={{ alignItems: 'center', justifyContent: 'center', color: '#fff', backgroundColor: '#dd242cc0', fontSize: 10, fontWeight: 'bold', margin: 10, borderRadius: 5, lineHeight: 10, textAlign: 'center' }}>Clique e {'\n'} saiba mais!</Text>
                 </ImageBackground>
             </TouchableOpacity>

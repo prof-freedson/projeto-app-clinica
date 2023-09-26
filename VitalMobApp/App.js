@@ -14,6 +14,7 @@ import InicioConsulta from './src/Screens/InicioConsulta';
 import Consulta from './src/Screens/Consulta';
 import AgendarConsultas from './src/Screens/AgendarConsultas';
 import MarcarConsulta from './src/Screens/MarcarConsulta';
+import DetalhesExame from './src/Screens/DetalhesExame';
 
 const Stack = createStackNavigator();
 
@@ -48,6 +49,7 @@ const App = () => {
                     <Stack.Screen name="InicioConsulta" component={InicioConsulta} />
                     <Stack.Screen name="AgendarConsultas" component={AgendarConsultas} />
                     <Stack.Screen name="MarcarConsulta" component={MarcarConsulta} />
+                    <Stack.Screen name="DetalhesExame" component={DetalhesExame} />
                     <Stack.Screen
                         name="Registro"
                         options={{

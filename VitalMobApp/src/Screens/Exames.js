@@ -52,6 +52,10 @@ export default function Exames({ navigation, route }) {
     };
   };
 
+  async function details(exam) {
+    navigation.navigate('DetalhesExame', { userData, docRef, exam });
+  }
+
   return (
     <>
         <View style={styles.header}>
@@ -73,6 +77,7 @@ export default function Exames({ navigation, route }) {
                     orientaTitulo={item.orientaTitulo}
                     orientaDetalhes={item.orientaDetalhes}
                     imagem={item.imagem}
+                    pressed={() => {details(item)}}
                     // onPressIcon={() => deleteAppointment(item.id)}
                 />
             )}
