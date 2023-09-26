@@ -1,6 +1,7 @@
 import React from 'react';
 import { StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import Icon from '../components/Icon';
+import MapView from 'react-native-maps';
 
 export default function DetalhesExame({ navigation, route }) {
     const userData = route.params.userData;
@@ -25,7 +26,15 @@ export default function DetalhesExame({ navigation, route }) {
             </View>
             <View style={styles.bigContainer}>
                 <Text style={styles.title}>Localização do Exame:</Text>
-                <Text style={styles.mLeft}>Filial: Filiazinha</Text>
+                <MapView
+                    initialRegion={{
+                        latitude: 37.78825,
+                        longitude: -122.4324,
+                        latitudeDelta: 0.0922,
+                        longitudeDelta: 0.0421,
+                    }}
+                />
+                <Text style={styles.mLeft}>Filial: Filial-A</Text>
             </View>
         </>
     );
