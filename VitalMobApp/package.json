@@ -572,7 +572,9 @@
     "yaml": "^2.3.1",
     "yargs": "^17.7.2",
     "yargs-parser": "^21.1.1",
-    "yocto-queue": "^0.1.0"
+    "yocto-queue": "^0.1.0",
+    "expo-av": "~13.4.1",
+    "react-native-maps": "1.7.1"
   },
   "scripts": {
     "start": "expo start",

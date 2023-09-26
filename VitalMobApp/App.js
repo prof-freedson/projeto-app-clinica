@@ -19,8 +19,6 @@ import DetalhesExame from './src/Screens/DetalhesExame';
 const Stack = createStackNavigator();
 
 const App = () => {
-
-
     return (
         <NavigationContainer>
              <Stack.Navigator
