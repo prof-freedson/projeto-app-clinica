@@ -79,9 +79,9 @@ export default function AgendarConsultas({ navigation, route }) {
         <Text>Data selecionada: {formattedDate}</Text>
         <TextInput style={styles.textoInput} placeholder="Hora 14:05" onChangeText={(text) => setHora(text)} />
 
-        <TouchableOpacity onPress={() => setShowTimeModal(true)}>
-          <Text>Selecione a Especialidade:</Text>
+        <TouchableOpacity onPress={() => setShowTimeModal(true)} style={styles.modalParent}>
           <Text style={styles.timeButton}>{selectedTime}</Text>
+          <Text>Selecione a Especialidade:</Text>
         </TouchableOpacity>
 
         {/* Configuração do Modal */}
@@ -89,6 +89,7 @@ export default function AgendarConsultas({ navigation, route }) {
           visible={showTimeModal}
           transparent={true}
           animationType="slide"
+          style={styles.modal}
         //Final da configuração do modal
         >
           {/* Elementos que serão exibidos no Modal */}
@@ -168,5 +169,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     borderRadius: 5,
     paddingLeft: 15,
+  },
+  modalParent: {
+    position: 'relative',
+  },
+  modal: {
+    position: 'absolute',
+    top: 50,
   },
 });
