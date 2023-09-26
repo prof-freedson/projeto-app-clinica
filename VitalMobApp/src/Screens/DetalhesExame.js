@@ -27,11 +27,12 @@ export default function DetalhesExame({ navigation, route }) {
             <View style={styles.bigContainer}>
                 <Text style={styles.title}>Localização do Exame:</Text>
                 <MapView
+                    style={{width: '100%', height: 100}}
                     initialRegion={{
                         latitude: 37.78825,
                         longitude: -122.4324,
-                        latitudeDelta: 0.0922,
-                        longitudeDelta: 0.0421,
+                        latitudeDelta: 0.00922,
+                        longitudeDelta: 0.00421,
                     }}
                 />
                 <Text style={styles.mLeft}>Filial: Filial-A</Text>

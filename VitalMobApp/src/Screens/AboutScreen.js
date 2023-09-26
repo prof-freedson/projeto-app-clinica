@@ -41,7 +41,7 @@ const AboutScreen = () => {
       github: 'https://github.com/',
     },
     {
-      name: 'Lincon Roberto',
+      name: 'Lincoln Roberto',
       imageUri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/2048px-User_icon_2.svg.png',
       github: 'https://github.com/',
     },
