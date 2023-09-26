@@ -1,47 +1,66 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { Component } from 'react';
+import { View, StyleSheet, Text, Linking, Platform } from 'react-native';
 
-const AboutScreen = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Sobre o Aplicativo</Text>
-      <Text style={styles.description}>
-        Este aplicativo de marcação de consultas foi criado para simplificar o processo
-        de agendamento de consultas médicas. Oferecemos uma plataforma fácil de usar
-        que permite que os pacientes agendem suas consultas de forma conveniente.
-        {"\n"}Integrantes :
-        {"\n"}Andressa Silveira
-        {"\n"} Daniel Mendes
-        {"\n"}Élvis Sousa
-        {"\n"} Jessica Luana
-        {"\n"}Kevin Silva Lopes
-        {"\n"}Marcos Barbosa
-        {"\n"}Vanderson Belfort
-        {"\n"}Pedro Igor
-        {"\n"}Lincon Roberto
-      </Text>
-    </View>
-  );
-};
+export default class App extends Component {
+  render () {
+    return (
+      <View style={styles.container}>   
+        <Text
+          style={styles.text}
+          onPress={() => {
+            Linking.openURL(
+              'https://about.google/'
+            );
+          }}>
+          Visite o Site
+        </Text>
+        <Text
+          style={styles.text}
+          onPress={() => {
+            if (Platform.OS === 'android') {
+              Linking.openURL(
+                'http://maps.apple.com/?ll=-23.5864258,-46.684084'
+              );
+            } else {
+              Linking.openURL(
+                'geo:-23.5864258,-46.684084'
+              );
+            }
+          }}>
+          Como Chegar
+        </Text>
+        <Text
+          style={styles.text}
+          onPress={() => {
+            Linking.openURL(
+              'http://api.whatsapp.com/send?phone=5519999999999'
+            );
+          }}>
+          Enviar Mensagem
+        </Text>
+        <Text
+          style={styles.text}
+          onPress={() => {
+            Linking.openURL(
+              'mailto:contato@google.com.br'
+            );
+          }}>
+          Enviar Email
+        </Text>
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
-  container: {
+  container: { backgroundColor : 'red',
     flex: 1,
-    padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'white', // Fundo branco
   },
-  title: {
-    fontSize: 26,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: 'red', // Texto vermelho
+  text: {
+    marginTop: 30,
+    fontSize: 25,
   },
-  description: {
-    fontSize: 17,
-    textAlign: 'center',
-    color: 'red', // Texto vermelho
-  },
-});
-export default AboutScreen;
+})
+

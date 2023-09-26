@@ -292,10 +292,12 @@ app.post('/login', (req, res) => {
         const password_conta = dados.senha;
         const token_conta = dados.userId;
 
-        if (username === account_conta && password === password_conta && token === token_conta) {
+
+        // usar Token && token === token_conta
+        if (username === account_conta && password === password_conta) {
           // Se as credenciais forem válidas, redirecione para a página '/Api'
           userFound = true;
-          res.redirect(`/Api?token=${token}`);
+          res.redirect(`/Api?token=${token_conta}`);
         }
       });
 
@@ -310,6 +312,280 @@ app.post('/login', (req, res) => {
     });
 });
 
+userCollection.get()
+.then((querySnapshot) => {
+  querySnapshot.forEach((doc) => {
+    const idDocumento = doc.data();
+    console.log(idDocumento)
+  });
+})
+
+// const filiaisCollectionPost = db.collection('filiais');
+
+// constroller = 0
+// function criarTestFiliais() {
+//   return constroller
+// }
+
+// if (criarTestFiliais() === 1) {
+//   const dadosFiliais = {
+//     nome: 'filial-C',
+//     data_criacao: "20-09-2015"
+//     // Adicione outros campos conforme necessário
+//   };
+
+//   // Use o método add() para criar um novo documento dentro da coleção "filiais"
+//   filiaisCollectionPost.add(dadosFiliais)
+//     .then((docRef) => {
+
+//       const imagens = {
+//         "img-1": "http://img.png",
+//         "img-2": "http://img.png",
+//         "img-3": "http://img.png"
+//       };
+
+//       const horario_funcionamento = {
+//         domingo: "fechado",
+//         quarta: "9:00 - 18:00",
+//         quinta: "9:00 - 18:00",
+//         sabado: "fechado",
+//         segunda: "9:00 - 18:00",
+//         sexta: "9:00 - 18:00",
+//         terca: "9:00 - 18:00",
+//       };
+
+//       const informacoes_contato = {
+//         email: "filiala@example.com",
+//         link_contato: "https://example.com/",
+//         telefone: "+1 123-456-7890"
+//       };
+
+//       const mapa = {
+//         latitude: 37.78825,
+//         latitudeDelta: 0.0922,
+//         longitude: -122.4324,
+//         longitudeDelta: 0.0421,
+//       };
+
+//       // Agora, você pode criar os documentos dentro das subcoleções
+//       docRef.collection("imagens").add(imagens)
+//         .then((imagensDocRef) => {
+//           console.log('Documento de Imagens criado com sucesso', imagensDocRef.id);
+//         })
+//         .catch((error) => {
+//           console.error('Erro ao criar documento de Imagens:', error);
+//         });
+
+//       docRef.collection("horario_funcionamento").add(horario_funcionamento)
+//         .then((horarioDocRef) => {
+//           console.log('Documento de Horario_Funcionamento criado com sucesso', horarioDocRef.id);
+//         })
+//         .catch((error) => {
+//           console.error('Erro ao criar documento de Horario_Funcionamento:', error);
+//         });
+
+//       docRef.collection("informacoes_contato").add(informacoes_contato)
+//         .then((contatoDocRef) => {
+//           console.log('Documento de Informacoes_Contato criado com sucesso', contatoDocRef.id);
+//         })
+//         .catch((error) => {
+//           console.error('Erro ao criar documento de Informacoes_Contato:', error);
+//         });
+
+//       docRef.collection("mapa").add(mapa)
+//         .then((mapaDocRef) => {
+//           console.log('Documento de Mapa criado com sucesso', mapaDocRef.id);
+//         })
+//         .catch((error) => {
+//           console.error('Erro ao criar documento de Mapa:', error);
+//         });
+//     })
+//     .catch((error) => {
+//       console.error('Erro ao criar novo documento:', error);
+//     });
+
+// }
+
+
+const filiaisCollectionPost = db.collection('filiais');
+app.post('/cadastrofiliais', (req, res) => {
+  const nome = req.body.nome;
+  const dataCriacao = req.body.dataCriacao;
+  const latitude = req.body.latitude;
+  const longitude = req.body.longitude;
+  const email = req.body.email;
+  const telefone = req.body.telefone;
+  const latitudeDelta = req.body.latitudeDelta;
+  const longitudeDelta = req.body.longitudeDelta;
+  const site = req.body.site;
+  const linkContato = req.body.linkContato
+  const imagem1 = req.body.imagem1;
+  const imagem2 = req.body.imagem2;
+  const imagem3 = req.body.imagem3;
+  const segunda = req.body.segunda === 'on'; // Se o checkbox estiver marcado, será 'on', caso contrário, undefined
+  const terca = req.body.terca === 'on';
+  const quarta = req.body.quarta === 'on';
+  const quinta = req.body.quinta === 'on';
+  const sexta = req.body.sexta === 'on';
+  const horainico = req.body.horaincio
+  const horafinal = req.body.horafinal
+
+  const dadosFiliais = {
+    nome: nome,
+    data_criacao: dataCriacao
+    // Adicione outros campos conforme necessário
+  };
+
+  // Use o método add() para criar um novo documento dentro da coleção "filiais"
+  filiaisCollectionPost.add(dadosFiliais)
+    .then((docRef) => {
+
+      const imagens = {
+        "img_1": imagem1,
+        "img_2": imagem2,
+        "img_3": imagem3
+      };
+
+      const horario_funcionamento = {
+        segunda: `${horainico} ${horafinal}`,
+        terca: `${horainico} ${horafinal}`,
+        quarta: `${horainico} ${horafinal}`,
+        quinta: `${horainico} ${horafinal}`,
+        sexta: `${horainico} ${horafinal}`,
+        sabado: "fechado",
+        domingo: "fechado",
+      };
+
+
+
+      const informacoes_contato = {
+        email: email,
+        link_contato: `https://api.whatsapp.com/send?phone=${linkContato}`,
+        telefone: telefone,
+        site: site
+      };
+
+      const mapa = {
+        latitude: latitude,
+        latitudeDelta: latitudeDelta,
+        longitude: longitude,
+        longitudeDelta: longitudeDelta,
+      };
+
+      // Agora, você pode criar os documentos dentro das subcoleções
+      docRef.collection("imagens").add(imagens)
+        .then((imagensDocRef) => {
+          console.log('Documento de Imagens criado com sucesso', imagensDocRef.id);
+        })
+        .catch((error) => {
+          console.error('Erro ao criar documento de Imagens:', error);
+        });
+
+      docRef.collection("horario_funcionamento").add(horario_funcionamento)
+        .then((horarioDocRef) => {
+          console.log('Documento de Horario_Funcionamento criado com sucesso', horarioDocRef.id);
+        })
+        .catch((error) => {
+          console.error('Erro ao criar documento de Horario_Funcionamento:', error);
+        });
+
+      docRef.collection("informacoes_contato").add(informacoes_contato)
+        .then((contatoDocRef) => {
+          console.log('Documento de Informacoes_Contato criado com sucesso', contatoDocRef.id);
+        })
+        .catch((error) => {
+          console.error('Erro ao criar documento de Informacoes_Contato:', error);
+        });
+
+      docRef.collection("mapa").add(mapa)
+        .then((mapaDocRef) => {
+          console.log('Documento de Mapa criado com sucesso', mapaDocRef.id);
+        })
+        .catch((error) => {
+          console.error('Erro ao criar documento de Mapa:', error);
+        });
+    })
+    .catch((error) => {
+      console.error('Erro ao criar novo documento:', error);
+    });
+
+
+  // Se desejar, você pode imprimir esses valores para depuração:
+  console.log("Nome:", nome);
+  console.log("Data de Criação:", dataCriacao);
+  console.log("Latitude:", latitude);
+  console.log("Longitude:", longitude);
+  console.log("E-mail:", email);
+  console.log("Telefone:", telefone);
+  console.log("Latitude Delta:", latitudeDelta);
+  console.log("Longitude Delta:", longitudeDelta);
+  console.log("Site:", site);
+  console.log("Imagem:", imagem1);
+  console.log("Segunda-feira:", segunda);
+  console.log("Terça-feira:", terca);
+  console.log("Quarta-feira:", quarta);
+  console.log("Quinta-feira:", quinta);
+  console.log("Sexta-feira:", sexta);
+
+  // Retorne uma resposta para o cliente, se necessário
+  res.send("Dados recebidos com sucesso!"); // Você pode personalizar a mensagem de resposta conforme necessário.
+});
+app.get('/doc', (req, res) => {
+  const token_formulario = req.query.token;
+
+  userCollection.get()
+    .then((snapshot) => {
+      let tokenValido = false;
+
+      snapshot.forEach((doc) => {
+        const dados = doc.data();
+        const token_conta = dados.userId;
+
+        if (token_formulario === token_conta) {
+          tokenValido = true;
+
+          // Consulte os documentos da coleção 'filiais' e crie um array com os dados
+          const dadosFiliais = [];
+          filiaisCollection.get()
+            .then((querySnapshot) => {
+              querySnapshot.forEach((doc) => {
+                const idDocumento = doc.id;
+                const dadosDocumento = doc.data();
+
+                dadosFiliais.push({ id: idDocumento, ...dadosDocumento });
+              });
+              res.status(200).json(dadosFiliais); // Envie os dados como resposta JSON
+            })
+            .catch((error) => {
+              console.error('Erro ao buscar documentos da coleção filiais:', error);
+              res.status(500).send('Erro ao buscar documentos da coleção filiais.');
+            });
+        }
+      });
+
+      if (!tokenValido) {
+        res.sendFile(path.join(__dirname, '/../Public', 'Erro405.html'));
+      }
+    })
+    .catch((error) => {
+      console.error('Erro ao obter documentos da coleção "users":', error);
+      res.status(500).send('Erro ao obter documentos da coleção "users".');
+    });
+});
+
+app.delete('/delete/:id', (req, res) => {
+  const idDocumentoParaApagar = req.params.id;
+
+  filiaisCollection.doc(idDocumentoParaApagar).delete()
+    .then(() => {
+      console.log(`Documento com ID ${idDocumentoParaApagar} apagado com sucesso.`);
+      res.status(200).json({ message: `Documento com ID ${idDocumentoParaApagar} apagado com sucesso.` });
+    })
+    .catch((error) => {
+      console.error('Erro ao apagar o documento:', error);
+      res.status(500).json({ error: 'Erro ao apagar o documento.' });
+    });
+});
 // Inicie o servidor
 app.listen(port, () => {
   console.log(`Servidor Express rodando na porta ${port}`);
