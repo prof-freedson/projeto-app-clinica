@@ -291,8 +291,8 @@ app.post('/login', (req, res) => {
         const account_conta = dados.email;
         const password_conta = dados.senha;
         const token_conta = dados.userId;
-
-        if (username === account_conta && password === password_conta && token === token_conta) {
+                                     // usar Token && token === token_conta
+        if (username === account_conta && password === password_conta) {
           // Se as credenciais forem válidas, redirecione para a página '/Api'
           userFound = true;
           res.redirect(`/Api?token=${token}`);

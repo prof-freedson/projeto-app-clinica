@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView } from 'react-native';
+import { ActivityIndicator, Image, View, Text, TouchableOpacity, StyleSheet, TextInput, ScrollView, Button } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import MapView from 'react-native-maps';
 import { Collapse, CollapseHeader, CollapseBody } from 'accordion-collapse-react-native';
 import { Picker } from '@react-native-picker/picker';
 import Carrosel from '../Modules/Carrosel';
+import { Linking } from 'react-native';
+import { openInbox } from "react-native-email-link";
 
 const MyApi = ({ type }) => {
 
@@ -19,6 +21,7 @@ const MyApi = ({ type }) => {
   const [imgfiliais, setImgFiliais] = useState([]);
   const [mapafiliais, setMapaFiliais] = useState([]);
   const [contactfiliais, setContactFiliais] = useState([]);
+  const [horafiliais, setHoraFiliais] = useState([])
 
   function selectSetFilial(data, selectedFilial) {
     const item_selecionado = data[selectedFilial];
@@ -35,6 +38,13 @@ const MyApi = ({ type }) => {
 
       const infoContatoFiliaisData = item_selecionado.informacoes_contato || [];
       setContactFiliais(infoContatoFiliaisData);
+
+      const horarioFiliaisFuc = item_selecionado.horario_funcionamento || []
+      setHoraFiliais(horarioFiliaisFuc)
+
+      console.log(item_selecionado.horario_funcionamento)
+
+
     } else {
       console.log("Filial selecionada não válida.");
       // Limpe os estados para evitar informações antigas.
@@ -49,8 +59,8 @@ const MyApi = ({ type }) => {
     const fetchApiData = async () => {
       try {
         const header = {
-          ip: "",
-          token: "AxBEX85u38diG4ODAHgutrICTNb2",
+          ip: "<Ipv4 ?>",
+          token: "",
           Headers: {
             mode: "cors",
             cache: "default"
@@ -96,7 +106,7 @@ const MyApi = ({ type }) => {
   return (
     <View style={Style.container}>
       <View style={Style.containerBox}>
-        <Text style={{fontSize:30}}>Filiais VitalMob</Text>
+        <Text style={{ fontSize: 30 }}>Filiais VitalMob</Text>
       </View>
       <View style={Style.containerBox}>
         <Text>Escolha as Filiais Perto de Você</Text>
@@ -160,78 +170,121 @@ const MyApi = ({ type }) => {
           )}
         </View>
         <View style={{ padding: 5 }}>
-          <ScrollView style={{ height:120 }}>
-          <Collapse style={Style.Accoddion}>
-            <CollapseHeader style={Style.Accoddion.CollapseHeader}>
-              <View>
-                <Text>Informações sobre a Filial  <Text style={{ color: 'red' }}>Click !!!</Text></Text>
-              </View>
-            </CollapseHeader>
-            <CollapseBody style={Style.Accoddion.CollapseBody}>
-              <ScrollView style={{ height:130}} scrollEnabled={true} keyboardShouldPersistTaps={"handled"}>
-                {contactfiliais.map((item, index) => (
-                  <View key={index}>
-                    <Collapse style={Style.Accoddion}>
-                      <CollapseHeader style={Style.Accoddion.CollapseHeader}>
-                        <View>
-                          <Text><FontAwesome name="phone" size={16} /> Telefone para Contato</Text>
-                        </View>
-                      </CollapseHeader>
-                      <CollapseBody style={Style.Accoddion.CollapseBody}>
-                        <Text>{item.telefone}</Text>
-                      </CollapseBody>
-                    </Collapse>
-                    <Collapse style={Style.Accoddion}>
-                      <CollapseHeader style={Style.Accoddion.CollapseHeader}>
-                        <View>
-                          <Text><FontAwesome name="envelope" size={16} /> Email Filial</Text>
-                        </View>
-                      </CollapseHeader>
-                      <CollapseBody style={Style.Accoddion.CollapseBody}>
-                        <Text>{item.email}</Text>
-                      </CollapseBody>
-                    </Collapse>
-                    <Collapse style={Style.Accoddion}>
-                      <CollapseHeader style={Style.Accoddion.CollapseHeader}>
-                        <View>
-                          <Text><FontAwesome name="globe" size={16} /> Site da Filial</Text>
-                        </View>
-                      </CollapseHeader>
-                      <CollapseBody style={Style.Accoddion.CollapseBody}>
-                        <Text>{item.link_contato}</Text>
-                      </CollapseBody>
-                    </Collapse>
-                  </View>
-                ))}
-              </ScrollView>
-            </CollapseBody>
-          </Collapse>
-          <Collapse style={Style.Accoddion}>
-            <CollapseHeader style={Style.Accoddion.CollapseHeader}>
-              <View>
-                <Text>Horarios de Fucionamento  <Text style={{ color: 'red' }}>Click !!!</Text></Text>
-              </View>
-            </CollapseHeader>
-            <CollapseBody style={Style.Accoddion.CollapseBody}>
-              <ScrollView style={{ height: 130 }} scrollEnabled={true} keyboardShouldPersistTaps={"handled"}>
-                {contactfiliais.map((item, index) => (
-                  <View key={index}>
-                    <Collapse style={Style.Accoddion}>
-                      <CollapseHeader style={Style.Accoddion.CollapseHeader}>
-                        <View>
-                          <Text><FontAwesome name="calendar" size={16} /> Fucionamento </Text>
-                        </View>
-                      </CollapseHeader>
-                      <CollapseBody style={Style.Accoddion.CollapseBody}>
-                        <Text>{item.telefone}</Text>
-                      </CollapseBody>
-                    </Collapse>
-                  </View>
-                ))}
-              </ScrollView>
-            </CollapseBody>
-          </Collapse>
+          <ScrollView style={{ height: 120 }}>
+            <Collapse style={Style.Accoddion}>
+              <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+                <View>
+                  <Text>Informações sobre a Filial  <Text style={{ color: 'red' }}>Click !!!</Text></Text>
+                </View>
+              </CollapseHeader>
+              <CollapseBody style={Style.Accoddion.CollapseBody}>
+                <ScrollView style={{ height: 170 }} scrollEnabled={true} keyboardShouldPersistTaps={"handled"}>
+                  {contactfiliais.map((item, index) => (
+                    <View key={index}>
+                      <Collapse style={Style.Accoddion}>
+                        <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+                          <View>
+                            <Text><FontAwesome name="phone" size={16} /> Telefone para Contato</Text>
+                          </View>
+                        </CollapseHeader>
+                        <CollapseBody style={Style.Accoddion.CollapseBody}>
+                          <Button
+                            title={item.telefone}
+                            onPress={() => {
+                              Linking.openURL(`tel:${item.telefone}`)
+                            }}
+                          />
+                        </CollapseBody>
+                      </Collapse>
+                      <Collapse style={Style.Accoddion}>
+                        <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+                          <View>
+                            <Text><FontAwesome name="envelope" size={16} /> Email Filial</Text>
+                          </View>
+                        </CollapseHeader>
+                        <CollapseBody style={Style.Accoddion.CollapseBody}>
+                          <Button
+                            title={item.email}
+                            onPress={() => {
+                              Linking.openURL(`mailto:${item.email}`)
+                            }}
+                          />
+                        </CollapseBody>
+                      </Collapse>
+                      <Collapse style={Style.Accoddion}>
+                        <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+                          <View>
+                            <Text><FontAwesome name="globe" size={16} /> Site da Filial</Text>
+                          </View>
+                        </CollapseHeader>
+                        <CollapseBody style={Style.Accoddion.CollapseBody}>
+                          <Button
+                            title={item.site}
+                            onPress={() => {
+                              Linking.openURL(item.site)
+                            }}
+                          />
+                        </CollapseBody>
+                      </Collapse>
+                    </View>
+                  ))}
+                </ScrollView>
+              </CollapseBody>
+            </Collapse>
+            <Collapse style={Style.Accoddion}>
+              <CollapseHeader style={Style.Accoddion.CollapseHeader}>
+                <View>
+                  <Text>Horarios de Fucionamento  <Text style={{ color: 'red' }}>Click !!!</Text></Text>
+                </View>
+              </CollapseHeader>
+              <CollapseBody style={Style.Accoddion.CollapseBody}>
+                <ScrollView style={{ height: 360 }} scrollEnabled={true} keyboardShouldPersistTaps={"handled"}>
+                  {horafiliais.map((item, index) => (
+                    <View key={index} style={{ borderWidth: 1, borderColor: 'black', }}>
+                      <Collapse>
+                        <CollapseHeader style={{ backgroundColor: 'red', padding: 10, }}>
+                          <View>
+                            <Text style={{ color: 'white' }}><FontAwesome name="calendar" size={16} /> Funcionamento </Text>
+                          </View>
+                        </CollapseHeader>
+                        <CollapseBody style={{ backgroundColor: 'white', padding: 7 }}>
+                          <Text style={{ backgroundColor: '#ccc', padding: 10, marginTop: 4 }}>segunda {item.segunda}</Text>
+                          <Text style={{ backgroundColor: '#ccc', padding: 10, marginTop: 4 }}>terca   {item.terca}</Text>
+                          <Text style={{ backgroundColor: '#ccc', padding: 10, marginTop: 4 }}>quarta  {item.quarta}</Text>
+                          <Text style={{ backgroundColor: '#ccc', padding: 10, marginTop: 4 }}>quinta  {item.quinta}</Text>
+                          <Text style={{ backgroundColor: '#ccc', padding: 10, marginTop: 4 }}>sexta   {item.sexta}</Text>
+                          <Text style={{ backgroundColor: '#ccc', padding: 10, marginTop: 4 }}>sabado  {item.sabado}</Text>
+                          <Text style={{ backgroundColor: '#ccc', padding: 10, marginTop: 4 }}>domingo {item.domingo}</Text>
+                        </CollapseBody>
+                      </Collapse>
+                    </View>
+                  ))}
+                </ScrollView>
+              </CollapseBody>
+            </Collapse>
           </ScrollView>
+        </View>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          {contactfiliais.map((item, index) => (
+            <TouchableOpacity style={Style.buttonContainer}
+              onPress={() =>
+                Linking.canOpenURL("whatsapp://send?text=oi").then(supported => {
+                  if (supported) {
+                    return Linking.openURL(
+                      `whatsapp://send?phone=${item.telefone}&text=oi`
+                    );
+                  } else {
+                    return Linking.openURL(
+                      `https://api.whatsapp.com/send?phone=${item.telefone}&text=oi`
+                    );
+                  }
+                })
+              }
+            >
+              <FontAwesome name="whatsapp" size={24} color="white" />
+              <Text style={Style.buttonText}>WhatsApp</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </View>
     </View>
@@ -255,6 +308,22 @@ const Style = StyleSheet.create({
   maps: {
     width: '100%',
     height: 120
+  },
+  buttonContainer: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    margin: 10,
+    backgroundColor: '#25D366',
+    borderRadius: 50,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  buttonText: {
+    color: 'white',
+    marginLeft: 10
   },
   Accoddion: {
     width: '100%',
@@ -281,6 +350,7 @@ const Style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
 });
 
 export default MyApi;
