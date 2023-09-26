@@ -60,8 +60,8 @@ const MyApi = ({ type }) => {
     const fetchApiData = async () => {
       try {
         const header = {
-          ip: "",
-          token: "",
+          ip: "192.168.207.152",
+          token: "AxBEX85u38diG4ODAHgutrICTNb2",
           Headers: {
             mode: "cors",
             cache: "default"
